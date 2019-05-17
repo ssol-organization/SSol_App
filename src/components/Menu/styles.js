@@ -5,6 +5,7 @@ export const Container = styled.View`
     position:absolute;
     bottom: 10;
     left: 2%;
+    right: 2%;
 `;
 
 export const MenuContainer = styled.ScrollView.attrs({
@@ -13,10 +14,10 @@ export const MenuContainer = styled.ScrollView.attrs({
     showsHorizontalScrollIndicator: false,
 })``;
 
-export const MenuItem = styled.View`
+export const MenuItem = styled.TouchableOpacity`
     width: 128px;
     height: 80px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 5px;
     margin-left: 2px;
     justify-content: center;
