@@ -26,9 +26,11 @@ export default class CardForm extends Component{
         }}
       >
         <View style={styles.mainCard}>
-          <Text style = {styles.cardTitle}>Fórmulas</Text>
-          <View style={styles.cardText}>
-                <Text style={styles.buttonText}>FORMULAS AQUI</Text>
+          <View style={styles.titleCard}>
+            <Text style = {styles.cardTitle}>Fórmulas</Text>
+          </View>
+          <View style={styles.contentCard}>
+                <Text style={styles.cardText}>FORMULAS AQUI</Text>
           </View>
         </View>
       </Animated.View>

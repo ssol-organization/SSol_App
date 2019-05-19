@@ -3,7 +3,7 @@ import { Text, View, Animated } from 'react-native';
 
 import styles from '../styles/styles.js';
 
-export default class CardGraph extends Component{
+export default class CardDiagrams extends Component{
   state = {
     fadeAnim: new Animated.Value(0),
   }
@@ -26,14 +26,14 @@ export default class CardGraph extends Component{
         }}
       >
       <View style={styles.mainCard}>
-      <View style={styles.titleCard}>
-            <Text style = {styles.cardTitle}>Gráficos</Text>
+          <View style={styles.titleCard}>
+            <Text style = {styles.cardTitle}>Diagramas</Text>
           </View>
         <View style={styles.contentCard}>
-              <Text style={styles.cardText}>IMAGENS AQUI</Text>
+              <Text style={styles.cardText}>DIAGRAMAS AQUI</Text>
         </View>
-    </View>
-    </Animated.View>
+      </View>
+      </Animated.View>
     );
   }
 }

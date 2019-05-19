@@ -26,9 +26,11 @@ export default class CardSettings extends Component{
         }}
       >
       <View style={styles.mainCard}>
-        <Text style = {styles.cardTitle}>Configurações</Text>
-        <View style={styles.cardText}>
-              <Text style={styles.buttonText}>CONFIGURAÇÕES AQUI</Text>
+          <View style={styles.titleCard}>
+            <Text style = {styles.cardTitle}>Configurações</Text>
+          </View>
+        <View style={styles.contentCard}>
+              <Text style={styles.cardText}>CONFIGURAÇÕES AQUI</Text>
         </View>
       </View>
       </Animated.View>

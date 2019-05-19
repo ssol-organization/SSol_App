@@ -4,10 +4,9 @@ const styles = StyleSheet.create({
   header: {
     margin: 10,
     height: 60,
-    backgroundColor: '#7EBDE8',
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
     justifyContent: 'center',
     borderRadius: 5,
-    elevation: 10
   },
   headerText: {
     fontSize: 30,
@@ -23,25 +22,25 @@ const styles = StyleSheet.create({
   mainPageCard: {
     flex: 1,
     alignSelf: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: 70,
   },
 
   buttonPage: {
-    backgroundColor: '#5DADE2',
     alignItems: 'center',
     justifyContent: 'flex-end'
   },
   buttonView: {
-    flexDirection:'row',
-    alignItems: 'center'
+    position: 'absolute',
+    left: 5,
+    right: 5,
   },
   button: {
-    backgroundColor: '#7EBDE8',
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
     padding: 30,
     margin: 5,
     marginBottom: 10,
     borderRadius: 5,
-    elevation: 15
   },
   buttonText: {
       fontSize: 15,

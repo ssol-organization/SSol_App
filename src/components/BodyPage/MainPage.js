@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
 
 import Header from './Header.js';
 import CardForm from '../Cards/Pages/CardForm.js';
 import CardGraph from '../Cards/Pages/CardGraph.js';
 import CardSettings from '../Cards/Pages/CardSettings.js';
+import CardDiagrams from '../Cards/Pages/CardDiagrams.js';
 
 import styles from './styles/styles.js';
 
@@ -12,26 +13,24 @@ export default class MainPage extends Component{
   constructor() {
     super();
     this.state = {
+      showDiagrams: false,
       showForm: false,
       showGraph: false,
       showSettings: false
     };
   }
 
+  showDiagramsCard = () => {
+    this.setState({ showDiagrams: !this.state.showDiagrams, showForm: false, showGraph: false, showSettings: false});
+  };
   showFormCard = () => {
-    if (this.state.showForm == false) {
-      this.setState({ showForm: true, showGraph: false, showSettings: false});
-    }
+    this.setState({ showDiagrams: false, showForm: !this.state.showForm, showGraph: false, showSettings: false});
   };
   showGraphCard = () => {
-    if (this.state.showGraph == false) {
-      this.setState({ showForm: false, showGraph: true, showSettings: false});
-    }
+    this.setState({ showDiagrams: false, showForm: false, showGraph: !this.state.showGraph, showSettings: false});
   };
   showSettingsCard = () => {
-    if (this.state.showSettings == false) {
-      this.setState({ showForm: false, showGraph: false, showSettings: true});
-    }
+    this.setState({ showDiagrams: false, showForm: false, showGraph: false, showSettings: !this.state.showSettings});
   };
 
   render() {
@@ -39,12 +38,16 @@ export default class MainPage extends Component{
       <View style={styles.mainPage}>
         <Header/>
           <View style = {styles.mainPageCard}>
-            {this.state.showForm ? <CardForm/> :
+            {this.state.showDiagrams ? <CardDiagrams/> :
+            (this.state.showForm ? <CardForm/> :
             (this.state.showGraph ? <CardGraph/> :
-            (this.state.showSettings ? <CardSettings/> : null))}
+            (this.state.showSettings ? <CardSettings/> : null)))}
           </View>
           <View style = {styles.buttonPage}>
-              <View style={styles.buttonView}>
+              <ScrollView horizontal={true} showsHorizontalScrollIndicator = {false} style={styles.buttonView}>
+              <TouchableOpacity style={styles.button} onPress={this.showDiagramsCard}>
+                  <Text style={styles.buttonText}>Diagramas</Text>
+                </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={this.showFormCard}>
                   <Text style={styles.buttonText}>Fórmulas</Text>
                 </TouchableOpacity>
@@ -54,7 +57,7 @@ export default class MainPage extends Component{
                 <TouchableOpacity style={styles.button} onPress={this.showSettingsCard}>
                   <Text style={styles.buttonText}>Settings</Text>
                 </TouchableOpacity>
-              </View>
+              </ScrollView>
           </View>
       </View>
     );
