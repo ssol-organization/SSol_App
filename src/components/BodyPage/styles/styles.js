@@ -37,10 +37,13 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    padding: 30,
+    height: 80,
+    width: 125,
     margin: 5,
     marginBottom: 10,
     borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
       fontSize: 15,
