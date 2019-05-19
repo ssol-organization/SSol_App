@@ -2,7 +2,19 @@
 
 This repository maintain the code for the React-Native Application. Below there's a screenshot for the actual  version of the available code of the repository.
 
-<center><img width="250" src="Available_Version.jpg"></center>
+<table>
+<tbody>
+<tr>
+<td align="center"><img width="250" src="va1.png"></td>
+<td align="center"><img width="250" src="va2.png"></td>
+</tr>
+<tr>
+<td align="center"><img width="250" src="va3.png"></td>
+<td align="center"><img width="250" src="va4.png"></td>
+</tr>
+<td align="center"><img width="250" src="va5.png"></td>
+</tr>
+</table>
 
 <hr/>
 <p align="center"><b>SSol</b></p>
