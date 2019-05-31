@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, Animated } from 'react-native';
+import { Text, View, Animated, ScrollView, Image } from 'react-native';
 
 import styles from '../styles/styles.js';
 
@@ -26,12 +26,12 @@ export default class CardSettings extends Component{
         }}
       >
       <View style={styles.mainCard}>
-          <View style={styles.titleCard}>
-            <Text style = {styles.cardTitle}>Configurações</Text>
-          </View>
-        <View style={styles.contentCard}>
-              <Text style={styles.cardText}>CONFIGURAÇÕES AQUI</Text>
-        </View>
+        <Text style = {styles.cardTitle}>Configurações</Text>
+        <ScrollView style={styles.contentCard}>
+         <Text style={{fontSize:96}}>Scroll me plz</Text>
+         <Image source={{uri: "https://image.flaticon.com/teams/slug/google.jpg", width: 64, height: 64}} />
+         <Image source={{uri: "https://calculusapi.herokuapp.com/get_diagram?tipo=4", width: 500, height: 200}} />
+        </ScrollView>
       </View>
       </Animated.View>
     );

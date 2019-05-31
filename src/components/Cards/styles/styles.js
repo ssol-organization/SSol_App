@@ -11,27 +11,43 @@ const styles = StyleSheet.create({
     height: height-270,
     top: -15,
     bottom: 70,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center'
   },
-  titleCard: {
-    top: -5,
-    height: 40,
-  },
+  // titleCard: {
+  //   top: -5,
+  //   height: 40,
+  // },
   contentCard: {
-    top: 15,
+    marginTop: 15,
+    width: width - 20,
     height: height-343,
-    justifyContent: 'center',
+    marginBottom: 20,
   },
   cardTitle: {
+    marginTop: 10,
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
+    alignSelf: 'center',
   },
   cardText: {
     color: '#fff',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  imageShape: {
+    width: '95%',
+    height: 225,
+    alignSelf: 'center',
+    borderRadius: 20
+  },
+  graphTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    alignSelf: 'center',
+    margin: 10
   }
 });
 

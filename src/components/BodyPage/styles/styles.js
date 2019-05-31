@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 5,
     right: 5,
+    flex: 1
   },
   button: {
     backgroundColor: 'rgba(255, 255, 255, 0.3)',

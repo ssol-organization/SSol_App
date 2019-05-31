@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, Animated } from 'react-native';
+import { Text, View, Animated, ScrollView,Image } from 'react-native';
 
 import styles from '../styles/styles.js';
 
@@ -26,12 +26,10 @@ export default class CardForm extends Component{
         }}
       >
         <View style={styles.mainCard}>
-          <View style={styles.titleCard}>
-            <Text style = {styles.cardTitle}>Fórmulas</Text>
-          </View>
-          <View style={styles.contentCard}>
-                <Text style={styles.cardText}>FORMULAS AQUI</Text>
-          </View>
+          <Text style = {styles.cardTitle}>Fórmulas</Text>
+          <ScrollView style={styles.contentCard}>
+             <Text style={{fontSize:96}}>Scroll me plz</Text>
+          </ScrollView>
         </View>
       </Animated.View>
     );

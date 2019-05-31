@@ -22,16 +22,28 @@ export default class MainPage extends Component{
   }
 
   showStandCard = () => {
-    this.setState({ showStand: !this.state.showStand, showForm: false, showGraph: false, showSettings: false});
+    this.setState({ showStand: !this.state.showStand
+      , showForm: false
+      , showGraph: false
+      , showSettings: false});
   };
   showFormCard = () => {
-    this.setState({ showStand: false, showForm: !this.state.showForm, showGraph: false, showSettings: false});
+    this.setState({ showStand: false
+      , showForm: !this.state.showForm
+      , showGraph: false
+      , showSettings: false});
   };
   showGraphCard = () => {
-    this.setState({ showStand: false, showForm: false, showGraph: !this.state.showGraph, showSettings: false});
+    this.setState({ showStand: false
+      , showForm: false
+      , showGraph: !this.state.showGraph
+      , showSettings: false});
   };
   showSettingsCard = () => {
-    this.setState({ showStand: false, showForm: false, showGraph: false, showSettings: !this.state.showSettings});
+    this.setState({ showStand: false,
+      showForm: false,
+      showGraph: false,
+      showSettings: !this.state.showSettings});
   };
 
   render() {
@@ -56,11 +68,11 @@ export default class MainPage extends Component{
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={this.showGraphCard}>
                   <Icon name="heart" size={24} color="#fff" />
-                  <Text style={styles.buttonText}>Gráficos</Text>
+                  <Text style={styles.buttonText}>Diagramas</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={this.showSettingsCard}>
                   <Icon name="cog" size={24} color="#fff" />
-                  <Text style={styles.buttonText}>Settings</Text>
+                  <Text style={styles.buttonText}>Configurações</Text>
                 </TouchableOpacity>
               </ScrollView>
           </View>
