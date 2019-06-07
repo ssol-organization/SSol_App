@@ -11,13 +11,7 @@ const styles = StyleSheet.create({
     height: height-270,
     top: -15,
     bottom: 70,
-    // alignItems: 'center',
-    // justifyContent: 'center'
   },
-  // titleCard: {
-  //   top: -5,
-  //   height: 40,
-  // },
   contentCard: {
     marginTop: 15,
     width: width - 20,
@@ -48,6 +42,18 @@ const styles = StyleSheet.create({
     color: '#fff',
     alignSelf: 'center',
     margin: 10
+  },
+  botaoCerto: {
+    backgroundColor: 'green',
+    margin: 10,
+  },
+  botaoErrado: {
+    backgroundColor: 'red',
+    margin: 10,
+  },
+  botaoQualquer:{
+    backgroundColor: 'grey',
+    margin: 10,
   }
 });
 

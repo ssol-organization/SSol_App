@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Header from './Header.js';
 import CardForm from '../Cards/Pages/CardForm.js';
@@ -17,10 +16,10 @@ export default class MainPage extends Component{
       showStand: false,
       showForm: false,
       showGraph: false,
-      showSettings: false
+      showSettings: false,
+      fotos: []
     };
   }
-
   showStandCard = () => {
     this.setState({ showStand: !this.state.showStand
       , showForm: false
@@ -53,25 +52,21 @@ export default class MainPage extends Component{
           <View style = {styles.mainPageCard}>
             {this.state.showStand ? <CardStand/> :
             (this.state.showForm ? <CardForm/> :
-            (this.state.showGraph ? <CardGraph/> :
+            (this.state.showGraph ? <CardGraph gameOn = {this.state.showGraph}/> :
             (this.state.showSettings ? <CardSettings/> : null)))}
           </View>
           <View style = {styles.buttonPage}>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator = {false} style={styles.buttonView}>
-              <TouchableOpacity style={styles.button} onPress={this.showStandCard}>
-                  <Icon name="camera" size={24} color="#fff" />
+                <TouchableOpacity style={styles.button} onPress={this.showStandCard}>
                   <Text style={styles.buttonText}>Bancadas</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={this.showFormCard}>
-                  <Icon name="edit" size={24} color="#fff" />
                   <Text style={styles.buttonText}>Fórmulas</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={this.showGraphCard}>
-                  <Icon name="heart" size={24} color="#fff" />
                   <Text style={styles.buttonText}>Diagramas</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={this.showSettingsCard}>
-                  <Icon name="cog" size={24} color="#fff" />
                   <Text style={styles.buttonText}>Configurações</Text>
                 </TouchableOpacity>
               </ScrollView>
