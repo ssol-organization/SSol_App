@@ -5,7 +5,7 @@ import styles from '../styles/styles.js';
 
 const nyanCat = require('../../../images/nyanCat.gif')
 const sealJudging = require('../../../images/sealJudging.gif')
-var buttonsText = {0:"resposta 1", 1:"resposta 2", 2:"resposta 3"};
+var buttonsText = {0:"A", 1:"B", 2:"C", 3:"D", 4:"E", 5:"F", 6:"G", 7:"H", 8:"I"};
 
 export default class CardGraph extends Component{
   constructor(){
@@ -22,7 +22,8 @@ export default class CardGraph extends Component{
       botao2:"",
       botao3:"",
       cardTitle:"Questão ",
-      count:1
+      count:1,
+      pontuacao:0
     }
   }
 
@@ -66,7 +67,8 @@ export default class CardGraph extends Component{
       if(this.state.buttonAnswer1 === true){
         this.setState({
           pressed: true,
-          error: false
+          error: false,
+          pontuacao:this.state.pontuacao+1
         });
       } else  {
         this.setState({
@@ -82,7 +84,8 @@ export default class CardGraph extends Component{
       if(this.state.buttonAnswer2 === true){
         this.setState({
           pressed: true,
-          error: false
+          error: false,
+          pontuacao:this.state.pontuacao+1
         });
       } else  {
         this.setState({
@@ -98,7 +101,8 @@ export default class CardGraph extends Component{
       if(this.state.buttonAnswer3 === true){
         this.setState({
           pressed: true,
-          error: false
+          error: false,
+          pontuacao:this.state.pontuacao+1
         });
       } else  {
         this.setState({
@@ -124,21 +128,21 @@ export default class CardGraph extends Component{
     switch (num) {
       case 0:
         this.setState({buttonAnswer1: true})
-        this.setState({botao1:buttonsText[num+1]})
-        this.setState({botao2:buttonsText[num]})
-        this.setState({botao3:buttonsText[num+2]})
+        this.setState({botao1:buttonsText[num+((this.state.count)*3)+1]})
+        this.setState({botao2:buttonsText[num+((this.state.count)*3)]})
+        this.setState({botao3:buttonsText[num+((this.state.count)*3)+2]})
         break;
       case 1:
         this.setState({buttonAnswer2: true})
-        this.setState({botao1:buttonsText[num+1]})
-        this.setState({botao2:buttonsText[num]})
-        this.setState({botao3:buttonsText[num-1]})
+        this.setState({botao1:buttonsText[num+((this.state.count)*3)+1]})
+        this.setState({botao2:buttonsText[num+((this.state.count)*3)]})
+        this.setState({botao3:buttonsText[num+((this.state.count)*3)-1]})
         break;
       case 2:
         this.setState({buttonAnswer3: true})
-        this.setState({botao1:buttonsText[num-2]})
-        this.setState({botao2:buttonsText[num]})
-        this.setState({botao3:buttonsText[num-1]})
+        this.setState({botao1:buttonsText[num+((this.state.count)*3)-2]})
+        this.setState({botao2:buttonsText[num+((this.state.count)*3)]})
+        this.setState({botao3:buttonsText[num+((this.state.count)*3)-1]})
         break;
     };;
   };
@@ -197,6 +201,9 @@ export default class CardGraph extends Component{
                 )
                 }
               </View>
+            </View>
+            <View style={styles.pontuacao}>
+              <Text style={styles.pontuacaoText}>{this.state.pontuacao}/4</Text>
             </View>
           </ScrollView>
         </View>

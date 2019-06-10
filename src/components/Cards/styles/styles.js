@@ -54,6 +54,16 @@ const styles = StyleSheet.create({
   botaoQualquer:{
     backgroundColor: 'grey',
     margin: 10,
+  },
+  pontuacao:{
+    alignSelf: 'flex-end',
+    margin: 10,
+    marginTop: 15
+  },
+  pontuacaoText:{
+    fontSize: 35,
+    fontWeight: 'bold',
+    color: '#fff',
   }
 });
 
