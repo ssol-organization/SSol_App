@@ -55,12 +55,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     margin: 10,
   },
-  pontuacao:{
+  score:{
     alignSelf: 'flex-end',
     margin: 10,
     marginTop: 15
   },
-  pontuacaoText:{
+  scoreText:{
     fontSize: 35,
     fontWeight: 'bold',
     color: '#fff',

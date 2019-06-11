@@ -5,7 +5,7 @@ import styles from '../styles/styles.js';
 
 const nyanCat = require('../../../images/nyanCat.gif')
 const sealJudging = require('../../../images/sealJudging.gif')
-var buttonsText = {0:"A", 1:"B", 2:"C", 3:"D", 4:"E", 5:"F", 6:"G", 7:"H", 8:"I"};
+var buttonsText = {0:"A", 1:"B", 2:"C", 3:"D", 4:"E", 5:"F", 6:"G", 7:"H", 8:"I", 9:"J", 10:"K", 11:"L"};
 
 export default class CardGraph extends Component{
   constructor(){
@@ -22,8 +22,10 @@ export default class CardGraph extends Component{
       botao2:"",
       botao3:"",
       cardTitle:"Questão ",
-      count:1,
-      pontuacao:0
+      counterButtons:1,
+      counterAnswers:0,
+      score:0,
+      showDiagrams: false
     }
   }
 
@@ -62,52 +64,33 @@ export default class CardGraph extends Component{
     };
 
   }
-  buttonPress1 = () => {
+  buttonPress = (buttonPosition) => {
     if(this.state.pressed === false){
-      if(this.state.buttonAnswer1 === true){
+      if(this.state.buttonAnswer1 === true && buttonPosition === 1){
         this.setState({
           pressed: true,
           error: false,
-          pontuacao:this.state.pontuacao+1
-        });
-      } else  {
-        this.setState({
-          pressed: true,
-          error: true
+          score:this.state.score + 1,
         });
       }
-    }
-  };
-
-  buttonPress2 = () => {
-    if(this.state.pressed === false){
-      if(this.state.buttonAnswer2 === true){
+      else if(this.state.buttonAnswer2 === true && buttonPosition === 2){
         this.setState({
           pressed: true,
           error: false,
-          pontuacao:this.state.pontuacao+1
-        });
-      } else  {
-        this.setState({
-          pressed: true,
-          error: true
+          score:this.state.score + 1,
         });
       }
-    }
-  };
-
-  buttonPress3 = () => {
-    if(this.state.pressed === false){
-      if(this.state.buttonAnswer3 === true){
+      else if(this.state.buttonAnswer3 === true && buttonPosition === 3){
         this.setState({
           pressed: true,
           error: false,
-          pontuacao:this.state.pontuacao+1
+          score:this.state.score + 1,
         });
-      } else  {
+      }
+      else {
         this.setState({
           pressed: true,
-          error: true
+          error: true,
         });
       }
     }
@@ -120,31 +103,38 @@ export default class CardGraph extends Component{
       buttonAnswer2: false,
       buttonAnswer3: false,
       pressed: false,
-      count:this.state.count+1
+      counterButtons:this.state.counterButtons+1
     })
+
+    if(this.state.counterAnswers === 4){
+      this.setState({
+        showDiagrams: true
+      });
+    };
 
     let num = Math.random()*3;
     num = Math.floor(num);
     switch (num) {
       case 0:
         this.setState({buttonAnswer1: true})
-        this.setState({botao1:buttonsText[num+((this.state.count)*3)+1]})
-        this.setState({botao2:buttonsText[num+((this.state.count)*3)]})
-        this.setState({botao3:buttonsText[num+((this.state.count)*3)+2]})
+        this.setState({botao1:buttonsText[num+((this.state.counterButtons)*3)+1]})
+        this.setState({botao2:buttonsText[num+((this.state.counterButtons)*3)]})
+        this.setState({botao3:buttonsText[num+((this.state.counterButtons)*3)+2]})
         break;
       case 1:
         this.setState({buttonAnswer2: true})
-        this.setState({botao1:buttonsText[num+((this.state.count)*3)+1]})
-        this.setState({botao2:buttonsText[num+((this.state.count)*3)]})
-        this.setState({botao3:buttonsText[num+((this.state.count)*3)-1]})
+        this.setState({botao1:buttonsText[num+((this.state.counterButtons)*3)+1]})
+        this.setState({botao2:buttonsText[num+((this.state.counterButtons)*3)]})
+        this.setState({botao3:buttonsText[num+((this.state.counterButtons)*3)-1]})
         break;
       case 2:
         this.setState({buttonAnswer3: true})
-        this.setState({botao1:buttonsText[num+((this.state.count)*3)-2]})
-        this.setState({botao2:buttonsText[num+((this.state.count)*3)]})
-        this.setState({botao3:buttonsText[num+((this.state.count)*3)-1]})
+        this.setState({botao1:buttonsText[num+((this.state.counterButtons)*3)-2]})
+        this.setState({botao2:buttonsText[num+((this.state.counterButtons)*3)]})
+        this.setState({botao3:buttonsText[num+((this.state.counterButtons)*3)-1]})
         break;
-    };;
+    };
+
   };
 
   render() {
@@ -158,28 +148,29 @@ export default class CardGraph extends Component{
           }}
         >
         <View style={styles.mainCard}>
-          <Text style = {styles.cardTitle}>{this.state.cardTitle+this.state.count}</Text>
+          <Text style = {styles.cardTitle}>{this.state.cardTitle+this.state.counterButtons}</Text>
           <ScrollView style={styles.contentCard}>
+          { this.state.counterButtons < 5 ? (
             <View style={{justifyContent:'space-between'}}>
               <TouchableOpacity
                 style={(this.state.pressed === true && this.state.buttonAnswer1 === true)?styles.botaoCerto:
                   ((this.state.pressed === true && this.state.buttonAnswer1 === false)?styles.botaoErrado:
                   styles.botaoQualquer)}
-                onPress={this.buttonPress1}>
+                onPress={() => this.buttonPress(1)}>
                 <Text style={styles.cardTitle}>{this.state.botao1}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={(this.state.pressed === true && this.state.buttonAnswer2 === true)?styles.botaoCerto:
                   ((this.state.pressed === true && this.state.buttonAnswer2 === false)?styles.botaoErrado:
                   styles.botaoQualquer)}
-                onPress={this.buttonPress2}>
+                onPress={() => this.buttonPress(2)}>
                 <Text style={styles.cardTitle}>{this.state.botao2}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={(this.state.pressed === true && this.state.buttonAnswer3 === true)?styles.botaoCerto:
                   ((this.state.pressed === true && this.state.buttonAnswer3 === false)?styles.botaoErrado:
                   styles.botaoQualquer)}
-                onPress={this.buttonPress3}>
+                onPress={() => this.buttonPress(3)}>
                 <Text style={styles.cardTitle}>{this.state.botao3}</Text>
               </TouchableOpacity>
               <View>
@@ -202,8 +193,9 @@ export default class CardGraph extends Component{
                 }
               </View>
             </View>
-            <View style={styles.pontuacao}>
-              <Text style={styles.pontuacaoText}>{this.state.pontuacao}/4</Text>
+          ):null}
+            <View style={styles.score}>
+              <Text style={styles.scoreText}>{this.state.score}/4</Text>
             </View>
           </ScrollView>
         </View>
