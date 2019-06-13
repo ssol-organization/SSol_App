@@ -43,17 +43,20 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     margin: 10
   },
-  botaoCerto: {
-    backgroundColor: 'green',
-    margin: 10,
+  correctButton: {
+    backgroundColor: '#3bd714',
+    borderRadius: 5,
+    margin: 10
   },
-  botaoErrado: {
+  wrongButton: {
     backgroundColor: 'red',
-    margin: 10,
+    borderRadius: 5,
+    margin: 10
   },
-  botaoQualquer:{
-    backgroundColor: 'grey',
-    margin: 10,
+  anyButton:{
+    backgroundColor: '#5DADE2',
+    borderRadius: 5,
+    margin: 10
   },
   score:{
     alignSelf: 'flex-end',
