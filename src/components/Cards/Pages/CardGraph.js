@@ -5,7 +5,8 @@ import styles from '../styles/styles.js';
 
 const nyanCat = require('../../../images/nyanCat.gif')
 const sealJudging = require('../../../images/sealJudging.gif')
-var buttonsText = {0:"A", 1:"B", 2:"C", 3:"D", 4:"E", 5:"F", 6:"G", 7:"H", 8:"I", 9:"J", 10:"K", 11:"L"};
+var buttonsChoices = {0:"A", 1:"B", 2:"C", 3:"D", 4:"E", 5:"F", 6:"G", 7:"H", 8:"I", 9:"J", 10:"K", 11:"L"};
+var questionsTitles = {0:"questao 1", 1:"Questao 2", 2:"Questao 3", 3:"Questao 4"};
 
 export default class CardGraph extends Component{
   constructor(){
@@ -21,7 +22,7 @@ export default class CardGraph extends Component{
       buttonNumber1:"",
       buttonNumber2:"",
       buttonNumber3:"",
-      cardTitle:"Questão ",
+      cardTitle:"",
       counterButtons:1,
       counterAnswers:0,
       score:0,
@@ -44,23 +45,25 @@ export default class CardGraph extends Component{
     switch (num) {
       case 0:
         this.setState({buttonAnswer1: true
-          , buttonNumber1:buttonsText[num+1]
-          , buttonNumber2:buttonsText[num]
-          , buttonNumber3:buttonsText[num+2]})
+          , buttonNumber1:buttonsChoices[num+1]
+          , buttonNumber2:buttonsChoices[num]
+          , buttonNumber3:buttonsChoices[num+2]})
         break;
       case 1:
         this.setState({buttonAnswer2: true
-          , buttonNumber1:buttonsText[num+1]
-          , buttonNumber2:buttonsText[num]
-          , buttonNumber3:buttonsText[num-1]})
+          , buttonNumber1:buttonsChoices[num+1]
+          , buttonNumber2:buttonsChoices[num]
+          , buttonNumber3:buttonsChoices[num-1]})
         break;
       case 2:
         this.setState({buttonAnswer3: true
-          , buttonNumber1:buttonsText[num-2]
-          , buttonNumber2:buttonsText[num]
-          , buttonNumber3:buttonsText[num-1]})
+          , buttonNumber1:buttonsChoices[num-2]
+          , buttonNumber2:buttonsChoices[num]
+          , buttonNumber3:buttonsChoices[num-1]})
         break;
     };
+
+    this.setState({cardTitle:questionsTitles[this.state.counterAnswers]})
   }
 
   buttonPress = (buttonPosition) => {
@@ -102,7 +105,8 @@ export default class CardGraph extends Component{
       buttonAnswer2: false,
       buttonAnswer3: false,
       pressed: false,
-      counterButtons:this.state.counterButtons+1
+      counterButtons:this.state.counterButtons+1,
+      cardTitle:questionsTitles[this.state.counterButtons]
     })
 
     if(this.state.counterAnswers === 4){
@@ -116,21 +120,21 @@ export default class CardGraph extends Component{
     switch (num) {
       case 0:
         this.setState({buttonAnswer1: true
-                      ,buttonNumber1:buttonsText[num+((this.state.counterButtons)*3)+1]
-                      ,buttonNumber2:buttonsText[num+((this.state.counterButtons)*3)]
-                      ,buttonNumber3:buttonsText[num+((this.state.counterButtons)*3)+2]})
+                      ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)+1]
+                      ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
+                      ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)+2]})
         break;
       case 1:
         this.setState({buttonAnswer2: true
-                      ,buttonNumber1:buttonsText[num+((this.state.counterButtons)*3)+1]
-                      ,buttonNumber2:buttonsText[num+((this.state.counterButtons)*3)]
-                      ,buttonNumber3:buttonsText[num+((this.state.counterButtons)*3)-1]})
+                      ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)+1]
+                      ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
+                      ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)-1]})
         break;
       case 2:
         this.setState({buttonAnswer3: true
-                      ,buttonNumber1:buttonsText[num+((this.state.counterButtons)*3)-2]
-                      ,buttonNumber2:buttonsText[num+((this.state.counterButtons)*3)]
-                      ,buttonNumber3:buttonsText[num+((this.state.counterButtons)*3)-1]})
+                      ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)-2]
+                      ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
+                      ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)-1]})
         break;
     };
 };
@@ -147,7 +151,7 @@ export default class CardGraph extends Component{
         >
         <View style={styles.mainCard}>
           { this.state.counterButtons < 5 ?
-            <Text style = {styles.cardTitle}>{this.state.cardTitle+this.state.counterButtons}</Text> :
+            <Text style = {styles.cardTitle}>{this.state.cardTitle}</Text> :
             <Text style = {styles.cardTitle}>Diagramas</Text>
           }
           <ScrollView style={styles.contentCard}>
@@ -158,21 +162,21 @@ export default class CardGraph extends Component{
                   ((this.state.pressed === true && this.state.buttonAnswer1 === false)?styles.wrongButton:
                   styles.anyButton)}
                 onPress={() => this.buttonPress(1)}>
-                <Text style={styles.cardTitle}>{this.state.buttonNumber1}</Text>
+                <Text style={styles.buttonText}>{this.state.buttonNumber1}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={(this.state.pressed === true && this.state.buttonAnswer2 === true)?styles.correctButton:
                   ((this.state.pressed === true && this.state.buttonAnswer2 === false)?styles.wrongButton:
                   styles.anyButton)}
                 onPress={() => this.buttonPress(2)}>
-                <Text style={styles.cardTitle}>{this.state.buttonNumber2}</Text>
+                <Text style={styles.buttonText}>{this.state.buttonNumber2}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={(this.state.pressed === true && this.state.buttonAnswer3 === true)?styles.correctButton:
                   ((this.state.pressed === true && this.state.buttonAnswer3 === false)?styles.wrongButton:
                   styles.anyButton)}
                 onPress={() => this.buttonPress(3)}>
-                <Text style={styles.cardTitle}>{this.state.buttonNumber3}</Text>
+                <Text style={styles.buttonText}>{this.state.buttonNumber3}</Text>
               </TouchableOpacity>
               <View>
                 {this.state.pressed === false ? null:

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { Text, View, Animated, ScrollView,Image } from 'react-native';
+import { Text, View, Animated, ScrollView, Image } from 'react-native';
 
 import styles from '../styles/styles.js';
 
-export default class CardForm extends Component{
+export default class CardSettings extends Component{
   state = {
     fadeAnim: new Animated.Value(0),
   }
@@ -25,12 +25,13 @@ export default class CardForm extends Component{
           opacity: fadeAnim,
         }}
       >
-        <View style={styles.mainCard}>
-          <Text style = {styles.cardTitle}>Fórmulas</Text>
-          <ScrollView style={styles.contentCard}>
-             <Text style={{fontSize:96}}>Scroll me plz</Text>
-          </ScrollView>
-        </View>
+      <View style={styles.mainCard}>
+        <Text style = {styles.cardTitle}>Ajuda</Text>
+        <ScrollView style={styles.contentCard}>
+         <Text style={{fontSize:96}}>Scroll me plz</Text>
+         <Image source={{uri: "https://calculusapi.herokuapp.com/get_diagram?tipo=4", width: 500, height: 200}} />
+        </ScrollView>
+      </View>
       </Animated.View>
     );
   }
