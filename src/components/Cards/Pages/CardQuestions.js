@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, Animated, Image, ScrollView, TouchableOpacity, CheckBox } from 'react-native';
+import { Text, View, Animated, Image, ScrollView, TouchableOpacity} from 'react-native';
 
 import styles from '../styles/styles.js';
 
@@ -7,7 +7,7 @@ const nyanCat = require('../../../images/nyanCat.gif')
 const sealJudging = require('../../../images/sealJudging.gif')
 var buttonsChoices = {0:"A", 1:"B", 2:"C", 3:"D", 4:"E", 5:"F", 6:"G", 7:"H", 8:"I", 9:"J", 10:"K", 11:"L"};
 var questionsTitles = {0:"Questao 1", 1:"Questao 2", 2:"Questao 3", 3:"Questao 4"};
-var questionsSolutions = {0:"Resposta 1", 1:"Resposta 2", 2:"Resposta 3", 3:"resposta 4"};
+var questionsAnswers = {0:"Resposta 1", 1:"Resposta 2", 2:"Resposta 3", 3:"resposta 4"};
 
 export default class CardGraph extends Component{
   constructor(){
@@ -27,7 +27,7 @@ export default class CardGraph extends Component{
       counterButtons:1,
       score:0,
       showDiagrams: false,
-      solutions:"",
+      answers:"",
       buttonSelected1: false,
       buttonSelected2: false,
       buttonSelected3: false,
@@ -70,7 +70,10 @@ export default class CardGraph extends Component{
         break;
     };
 
-    this.setState({cardTitle:questionsTitles[this.state.counterButtons-1]})
+    this.setState({
+      cardTitle:questionsTitles[this.state.counterButtons-1],
+      answers:questionsAnswers[this.state.counterButtons-1],
+    })
   }
 
   buttonNextPress = () => {
@@ -88,6 +91,7 @@ export default class CardGraph extends Component{
       pressed1: false,
       pressed2: false,
       pressed3: false,
+      answers:questionsAnswers[this.state.counterButtons],
     })
 
     if(this.state.counterButtons === 5){
@@ -286,7 +290,9 @@ export default class CardGraph extends Component{
                   </TouchableOpacity>
                 </View>
               </View>
-            ):null}
+            )
+            :
+            null}
               <View style={styles.score}>
                 <Text style={styles.scoreText}>{this.state.score}/4</Text>
               </View>
@@ -309,6 +315,9 @@ export default class CardGraph extends Component{
               <View>
                 <Text style={styles.buttonText}>Voce errou</Text>
                 <Image source={sealJudging} style={styles.imageShape}/>
+                <View>
+                  <Text style={styles.cardTitle}>{this.state.answers}</Text>
+                </View>
                 <TouchableOpacity style={styles.cardText} onPress={this.buttonNextPress}>
                   <Text style={styles.cardTitle}>Next</Text>
                 </TouchableOpacity>
