@@ -76,6 +76,31 @@ export default class CardGraph extends Component{
     })
   }
 
+  randomQuestion = () =>{
+    let num = Math.random()*3;
+    num = Math.floor(num);
+    switch (num) {
+      case 0:
+        this.setState({buttonAnswer1: true
+          ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)+1]
+          ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
+          ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)+2]})
+      break;
+      case 1:
+        this.setState({buttonAnswer2: true
+          ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)+1]
+          ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
+          ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)-1]})
+      break;
+      case 2:
+        this.setState({buttonAnswer3: true
+          ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)-2]
+          ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
+          ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)-1]})
+      break;
+      };
+  }
+
   buttonNextPress = () => {
     this.setState({
       buttonNext: true,
@@ -100,88 +125,50 @@ export default class CardGraph extends Component{
       });
     };
 
-    let num = Math.random()*3;
-    num = Math.floor(num);
-    switch (num) {
-      case 0:
-        this.setState({buttonAnswer1: true
-                      ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)+1]
-                      ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
-                      ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)+2]})
-        break;
-      case 1:
-        this.setState({buttonAnswer2: true
-                      ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)+1]
-                      ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
-                      ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)-1]})
-        break;
-      case 2:
-        this.setState({buttonAnswer3: true
-                      ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)-2]
-                      ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
-                      ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)-1]})
-        break;
-    };
+    this.randomQuestion();
+
   };
 
   buttonConfirmPressed = () => {
-
-    this.setState({
-      buttonNext: true,
-      buttonConfirm: true,
-      buttonAnswer1: false,
-      buttonAnswer2: false,
-      buttonAnswer3: false,
-      buttonSelected1: false,
-      buttonSelected2: false,
-      buttonSelected3: false,
-      pressed1: false,
-      pressed2: false,
-      pressed3: false,
-    })
-
-    let num = Math.random()*3;
-    num = Math.floor(num);
-    switch (num) {
-      case 0:
-        this.setState({buttonAnswer1: true
-                      ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)+1]
-                      ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
-                      ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)+2]})
-        break;
-      case 1:
-        this.setState({buttonAnswer2: true
-                      ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)+1]
-                      ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
-                      ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)-1]})
-        break;
-      case 2:
-        this.setState({buttonAnswer3: true
-                      ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)-2]
-                      ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
-                      ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)-1]})
-        break;
-    };
-
-    if(this.state.buttonSelected1 === true && this.state.buttonAnswer1 === true){
+    if(this.state.pressed1 === false && this.state.pressed2 === false && this.state.pressed3 === false){
+      null;
+    } else {
       this.setState({
-        error: false,
-        score:this.state.score+1,
-      })
-    }else if(this.state.buttonSelected2 === true && this.state.buttonAnswer2 === true){
-      this.setState({
-        error: false,
-        score:this.state.score+1,
-      })
-    }else if(this.state.buttonSelected3 === true && this.state.buttonAnswer3 === true){
-      this.setState({
-        error: false,
-        score:this.state.score+1,
-      })
-    }else{
+        buttonNext: true,
+        buttonConfirm: true,
+        buttonAnswer1: false,
+        buttonAnswer2: false,
+        buttonAnswer3: false,
+        buttonSelected1: false,
+        buttonSelected2: false,
+        buttonSelected3: false,
+        pressed1: false,
+        pressed2: false,
+        pressed3: false,
+      });
+
+      this.randomQuestion();
+
+      if(this.state.buttonSelected1 === true && this.state.buttonAnswer1 === true){
+        this.setState({
+          error: false,
+          score:this.state.score+1,
+        })
+      }else if(this.state.buttonSelected2 === true && this.state.buttonAnswer2 === true){
+        this.setState({
+          error: false,
+          score:this.state.score+1,
+        })
+      }else if(this.state.buttonSelected3 === true && this.state.buttonAnswer3 === true){
+        this.setState({
+          error: false,
+          score:this.state.score+1,
+        })
+      }else{
       this.setState({
         error: true,
       })
+    }
     }
   };
 
@@ -190,10 +177,10 @@ export default class CardGraph extends Component{
       if(selectedButton===1){
         this.setState({
           pressed1: true,
-          buttonSelected1: true,
           pressed2: false,
-          buttonSelected2: false,
           pressed3: false,
+          buttonSelected1: true,
+          buttonSelected2: false,
           buttonSelected3: false,
         })
       }
@@ -209,10 +196,10 @@ export default class CardGraph extends Component{
       if(selectedButton===2){
         this.setState({
           pressed1: false,
-          buttonSelected1: false,
           pressed2: true,
-          buttonSelected2: true,
           pressed3: false,
+          buttonSelected1: false,
+          buttonSelected2: true,
           buttonSelected3: false,
         })
       }
@@ -228,10 +215,10 @@ export default class CardGraph extends Component{
       if(selectedButton===3){
         this.setState({
           pressed1: false,
-          buttonSelected1: false,
           pressed2: false,
-          buttonSelected2: false,
           pressed3: true,
+          buttonSelected1: false,
+          buttonSelected2: false,
           buttonSelected3: true,
         })
       }
@@ -244,8 +231,6 @@ export default class CardGraph extends Component{
       }
     }
   }
-
-
 
   render() {
     let { fadeAnim } = this.state;

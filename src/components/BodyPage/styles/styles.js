@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   },
   buttonView: {
     position: 'absolute',
+    flexDirection: 'row',
     left: 5,
     right: 5,
     flex: 1

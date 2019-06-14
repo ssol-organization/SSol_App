@@ -49,7 +49,7 @@ export default class MainPage extends Component{
             (this.state.showHelp ? <CardHelp/> : null)))}
           </View>
           <View style = {styles.buttonPage}>
-              <ScrollView horizontal={true} showsHorizontalScrollIndicator = {false} style={styles.buttonView}>
+              <View style={styles.buttonView}>
                 <TouchableOpacity style={styles.button} onPress={this.showStandCard}>
                   <Text style={styles.buttonText}>Bancadas</Text>
                 </TouchableOpacity>
@@ -59,7 +59,7 @@ export default class MainPage extends Component{
                 <TouchableOpacity style={styles.button} onPress={this.showHelpCard}>
                   <Text style={styles.buttonText}>Ajuda</Text>
                 </TouchableOpacity>
-              </ScrollView>
+              </View>
           </View>
       </View>
     );
