@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
 
 import Header from './Header.js';
-import CardGraph from '../Cards/Pages/CardGraph.js';
+import CardQuestions from '../Cards/Pages/CardQuestions';
 import CardHelp from '../Cards/Pages/CardHelp.js';
 import CardStand from '../Cards/Pages/CardStand.js';
 
@@ -14,7 +14,7 @@ export default class MainPage extends Component{
     this.state = {
       showStand: false,
       showForm: false,
-      showGraph: false,
+      showQuestions: false,
       showHelp: false,
       fotos: []
     };
@@ -22,19 +22,19 @@ export default class MainPage extends Component{
   showStandCard = () => {
     this.setState({ showStand: !this.state.showStand
       , showForm: false
-      , showGraph: false
+      , showQuestions: false
       , showHelp: false});
   };
-  showGraphCard = () => {
+  showQuestionsCard = () => {
     this.setState({ showStand: false
       , showForm: false
-      , showGraph: !this.state.showGraph
+      , showQuestions: !this.state.showQuestions
       , showHelp: false});
   };
   showHelpCard = () => {
     this.setState({ showStand: false,
       showForm: false,
-      showGraph: false,
+      showQuestions: false,
       showHelp: !this.state.showHelp});
   };
 
@@ -45,7 +45,7 @@ export default class MainPage extends Component{
           <View style = {styles.mainPageCard}>
             {this.state.showStand ? <CardStand/> :
             (this.state.showForm ? <CardForm/> :
-            (this.state.showGraph ? <CardGraph gameOn = {this.state.showGraph}/> :
+            (this.state.showQuestions ? <CardQuestions gameOn = {this.state.showQuestions}/> :
             (this.state.showHelp ? <CardHelp/> : null)))}
           </View>
           <View style = {styles.buttonPage}>
@@ -53,7 +53,7 @@ export default class MainPage extends Component{
                 <TouchableOpacity style={styles.button} onPress={this.showStandCard}>
                   <Text style={styles.buttonText}>Bancadas</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={this.showGraphCard}>
+                <TouchableOpacity style={styles.button} onPress={this.showQuestionsCard}>
                   <Text style={styles.buttonText}>Questionário</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={this.showHelpCard}>
