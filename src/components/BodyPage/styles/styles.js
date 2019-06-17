@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+const width = Dimensions.get('screen').width;
 
 const styles = StyleSheet.create({
   header: {
@@ -14,7 +15,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center'
   },
-
   mainPage: {
     flex: 1,
     backgroundColor: '#5DADE2'
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
   buttonView: {
     position: 'absolute',
     flexDirection: 'row',
+    justifyContent: "space-around",
     left: 5,
     right: 5,
     flex: 1
@@ -40,8 +41,9 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
     height: 80,
-    width: 125,
-    margin: 5,
+    width: width/3 - 10,
+    // width: 125,
+    margin: 15,
     marginBottom: 10,
     borderRadius: 5,
     justifyContent: 'center',

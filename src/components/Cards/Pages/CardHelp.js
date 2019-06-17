@@ -28,8 +28,12 @@ export default class CardSettings extends Component{
       <View style={styles.mainCard}>
         <Text style = {styles.cardTitle}>Ajuda</Text>
         <ScrollView style={styles.contentCard}>
-         <Text style={{fontSize:96}}>Scroll me plz</Text>
-         <Image source={{uri: "https://calculusapi.herokuapp.com/get_diagram?tipo=4", width: 500, height: 200}} />
+          <Text>Bem vindo ao aplicativo do projeto SSOL</Text>
+          <Text>As instruções básicas para utilização são:</Text>
+          <Text>1 - Ajuste os pesos na bancada</Text>
+          <Text>2 - Aperte no botão SSOL na parte superior da tela para carregar uma nova imagem da sua bancada</Text>
+          <Text></Text>
+          <Text></Text>
         </ScrollView>
       </View>
       </Animated.View>

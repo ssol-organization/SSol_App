@@ -43,13 +43,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     margin: 10
   },
-  correctButton: {
+  selectedButton: {
     backgroundColor: '#3bd714',
-    borderRadius: 5,
-    margin: 10
-  },
-  wrongButton: {
-    backgroundColor: 'red',
     borderRadius: 5,
     margin: 10
   },
@@ -73,7 +68,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     alignSelf: 'center',
-
   }
 });
 

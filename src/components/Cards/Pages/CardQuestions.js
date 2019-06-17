@@ -6,8 +6,12 @@ import styles from '../styles/styles.js';
 const nyanCat = require('../../../images/nyanCat.gif')
 const sealJudging = require('../../../images/sealJudging.gif')
 var buttonsChoices = {0:"A", 1:"B", 2:"C", 3:"D", 4:"E", 5:"F", 6:"G", 7:"H", 8:"I", 9:"J", 10:"K", 11:"L"};
-var questionsTitles = {0:"Questao 1", 1:"Questao 2", 2:"Questao 3", 3:"Questao 4"};
-var questionsAnswers = {0:"Resposta 1", 1:"Resposta 2", 2:"Resposta 3", 3:"resposta 4"};
+var questionsTitles = {0:"Questão 1", 1:"Questão 2", 2:"Questão 3", 3:"Questão 4"};
+var qustionText = {0:"Questão 1",
+                   1:"Questão 2",
+                   2:"Questão 3",
+                   3:"Questão 4"};
+var questionsAnswers = {0:"Resposta 1", 1:"Resposta 2", 2:"Resposta 3", 3:"Resposta 4"};
 
 export default class CardGraph extends Component{
   constructor(){
@@ -252,26 +256,23 @@ export default class CardGraph extends Component{
             { this.state.counterButtons < 5 ? (
               <View style={{justifyContent:'space-between'}}>
                 <TouchableOpacity
-                  style={(this.state.pressed1 === true && this.state.buttonSelected1 === true)?styles.correctButton:
-                    ((this.state.pressed1 === false &&this.state.buttonSelected1 === true)?styles.anyButton:styles.anyButton)}
+                  style={(this.state.pressed1 === true && this.state.buttonSelected1 === true)?styles.selectedButton:styles.anyButton}
                   onPress={() => this.buttonSelected(1)}>
                   <Text style={styles.buttonText}>{this.state.buttonNumber1}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={(this.state.pressed2 === true && this.state.buttonSelected2 === true)?styles.correctButton:
-                    ((this.state.pressed2 === false &&this.state.buttonSelected2 === true)?styles.anyButton:styles.anyButton)}
+                  style={(this.state.pressed2 === true && this.state.buttonSelected2 === true)?styles.selectedButton:styles.anyButton}
                   onPress={() => this.buttonSelected(2)}>
                   <Text style={styles.buttonText}>{this.state.buttonNumber2}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={(this.state.pressed3 === true && this.state.buttonSelected3 === true)?styles.correctButton:
-                    ((this.state.pressed3 === false &&this.state.buttonSelected3 === true)?styles.anyButton:styles.anyButton)}
+                  style={(this.state.pressed3 === true && this.state.buttonSelected3 === true)?styles.selectedButton:styles.anyButton}
                   onPress={() => this.buttonSelected(3)}>
                   <Text style={styles.buttonText}>{this.state.buttonNumber3}</Text>
                 </TouchableOpacity>
                 <View>
-                  <TouchableOpacity style={styles.cardText} onPress={this.buttonConfirmPressed}>
-                    <Text style={styles.cardTitle}>Confirmar</Text>
+                  <TouchableOpacity style={styles.anyButton} onPress={this.buttonConfirmPressed}>
+                    <Text style={styles.buttonText}>Confirmar</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -287,24 +288,22 @@ export default class CardGraph extends Component{
           (
           <View style={styles.mainCard}>
             <View>
-              {this.state.error === false ? (
+              {this.state.error === false ?(
                 <View>
-                  <Text style={styles.buttonText}>Voce acertou</Text>
+                  <Text style={styles.cardTitle}>Você Acertou</Text>
                   <Image source={nyanCat} style={styles.imageShape}/>
-                  <TouchableOpacity style={styles.cardText} onPress={this.buttonNextPress}>
-                    <Text style={styles.cardTitle}>Next</Text>
+                  <TouchableOpacity style={styles.anyButton} onPress={this.buttonNextPress}>
+                    <Text style={styles.cardTitle}>Próximo</Text>
                   </TouchableOpacity>
-                </View>
-              )
-              :
+                </View>):
               <View>
-                <Text style={styles.buttonText}>Voce errou</Text>
+                <Text style={styles.cardTitle}>Você Errou</Text>
                 <Image source={sealJudging} style={styles.imageShape}/>
                 <View>
                   <Text style={styles.cardTitle}>{this.state.answers}</Text>
                 </View>
-                <TouchableOpacity style={styles.cardText} onPress={this.buttonNextPress}>
-                  <Text style={styles.cardTitle}>Next</Text>
+                <TouchableOpacity style={styles.anyButton} onPress={this.buttonNextPress}>
+                  <Text style={styles.buttonText}>Próximo</Text>
                 </TouchableOpacity>
               </View>
               }
