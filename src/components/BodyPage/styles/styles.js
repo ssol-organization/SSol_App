@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
   buttonView: {
     position: 'absolute',
     flexDirection: 'row',
-    justifyContent: "space-around",
     left: 5,
     right: 5,
     flex: 1
@@ -41,9 +40,8 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
     height: 80,
-    width: width/3 - 10,
-    // width: 125,
-    margin: 15,
+    width: width/3 -10,
+    margin: 5,
     marginBottom: 10,
     borderRadius: 5,
     justifyContent: 'center',

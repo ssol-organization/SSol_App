@@ -44,13 +44,15 @@ const styles = StyleSheet.create({
     margin: 10
   },
   selectedButton: {
-    backgroundColor: '#3bd714',
-    borderRadius: 5,
+    backgroundColor: '#dddbdb',
+    borderRadius: 10,
+    padding: 10,
     margin: 10
   },
   anyButton:{
     backgroundColor: '#5DADE2',
-    borderRadius: 5,
+    borderRadius: 10,
+    padding: 10,
     margin: 10
   },
   score:{
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
   },
   buttonText:{
     color: '#ffff',
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
     alignSelf: 'center',
   }

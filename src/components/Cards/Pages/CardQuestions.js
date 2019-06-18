@@ -7,15 +7,11 @@ const nyanCat = require('../../../images/nyanCat.gif')
 const sealJudging = require('../../../images/sealJudging.gif')
 var buttonsChoices = {0:"A", 1:"B", 2:"C", 3:"D", 4:"E", 5:"F", 6:"G", 7:"H", 8:"I", 9:"J", 10:"K", 11:"L"};
 var questionsTitles = {0:"Questão 1", 1:"Questão 2", 2:"Questão 3", 3:"Questão 4"};
-var qustionText = {0:"Questão 1",
-                   1:"Questão 2",
-                   2:"Questão 3",
-                   3:"Questão 4"};
 var questionsAnswers = {0:"Resposta 1", 1:"Resposta 2", 2:"Resposta 3", 3:"Resposta 4"};
 
 export default class CardGraph extends Component{
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       fadeAnim: new Animated.Value(0),
       error: false,
@@ -24,14 +20,14 @@ export default class CardGraph extends Component{
       buttonAnswer3: false,
       buttonNext: false,
       buttonConfirm:false,
-      buttonNumber1:"",
-      buttonNumber2:"",
-      buttonNumber3:"",
+      buttonNumber1: "",
+      buttonNumber2: "",
+      buttonNumber3: "",
       cardTitle:"",
-      counterButtons:1,
-      score:0,
+      counterButtons: 1,
+      score: 0,
       showDiagrams: false,
-      answers:"",
+      answers: "",
       buttonSelected1: false,
       buttonSelected2: false,
       buttonSelected3: false,
@@ -248,11 +244,8 @@ export default class CardGraph extends Component{
         >
         {this.state.buttonConfirm === false ? (
           <View style={styles.mainCard}>
-            { this.state.counterButtons < 5 ?
-              <Text style = {styles.cardTitle}>{this.state.cardTitle}</Text> :
-              <Text style = {styles.cardTitle}>Diagramas</Text>
-            }
-            <ScrollView style={styles.contentCard}>
+            <Text style = {styles.cardTitle}>{this.state.cardTitle}</Text>
+            <ScrollView style={styles.contentCard} showsVerticalScrollIndicator={false}>
             { this.state.counterButtons < 5 ? (
               <View style={{justifyContent:'space-between'}}>
                 <TouchableOpacity
@@ -275,13 +268,13 @@ export default class CardGraph extends Component{
                     <Text style={styles.buttonText}>Confirmar</Text>
                   </TouchableOpacity>
                 </View>
+                <View style={styles.score}>
+                <Text style={styles.scoreText}>{this.state.score}/4</Text>
+                </View>
               </View>
             )
             :
             null}
-              <View style={styles.score}>
-                <Text style={styles.scoreText}>{this.state.score}/4</Text>
-              </View>
             </ScrollView>
           </View>)
           :
