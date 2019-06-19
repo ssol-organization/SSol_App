@@ -119,14 +119,7 @@ export default class CardGraph extends Component{
       answers:questionsAnswers[this.state.counterButtons],
     })
 
-    if(this.state.counterButtons === 5){
-      this.setState({
-        showDiagrams: true
-      });
-    };
-
     this.randomQuestion();
-
   };
 
   buttonConfirmPressed = () => {
@@ -269,12 +262,14 @@ export default class CardGraph extends Component{
                   </TouchableOpacity>
                 </View>
                 <View style={styles.score}>
-                <Text style={styles.scoreText}>{this.state.score}/4</Text>
+                  <Text style={styles.scoreText}>{this.state.score}/4</Text>
                 </View>
               </View>
             )
             :
-            null}
+            <TouchableOpacity style={{backgroundColor: 'red'}} onPress={this.props.answeredAll}>
+              <Text>Teste</Text>
+            </TouchableOpacity>}
             </ScrollView>
           </View>)
           :
@@ -286,7 +281,7 @@ export default class CardGraph extends Component{
                   <Text style={styles.cardTitle}>Você Acertou</Text>
                   <Image source={nyanCat} style={styles.imageShape}/>
                   <TouchableOpacity style={styles.anyButton} onPress={this.buttonNextPress}>
-                    <Text style={styles.cardTitle}>Próximo</Text>
+                    <Text style={styles.buttonText}>Próximo</Text>
                   </TouchableOpacity>
                 </View>):
               <View>

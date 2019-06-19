@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
 
 import Header from './Header.js';
 import CardQuestions from '../Cards/Pages/CardQuestions';
@@ -8,6 +8,8 @@ import CardStand from '../Cards/Pages/CardStand.js';
 import CardDiagram from '../Cards/Pages/CardDiagram.js'
 
 import styles from './styles/styles.js';
+
+const SSolImage = require('../../images/SSolImage.png')
 
 export default class MainPage extends Component{
   constructor(props) {
@@ -21,8 +23,10 @@ export default class MainPage extends Component{
       count: 0,
       pressSSol: false,
       questionsAnswered: false
+
     };
-    this.updateThisCounter = this.updateThisCounter.bind(this);
+    this.wasSSolpressed = this.wasSSolpressed.bind(this);
+    this.fineshedQuestions = this.fineshedQuestions.bind(this);
   }
   showStandCard = () => {
     this.setState({ showStand: !this.state.showStand
@@ -31,16 +35,20 @@ export default class MainPage extends Component{
       , showHelp: false});
   };
   showDiagramsCard = () => {
-    this.setState({ showStand: false
-      , showDiagrams: !this.state.showStand
-      , showQuestions: false
-      , showHelp: false});
+    if(this.questionsAnswered === true){
+      this.setState({ showStand: false
+        , showDiagrams: !this.state.showDiagrams
+        , showQuestions: false
+        , showHelp: false});
+    }
   };
   showQuestionsCard = () => {
-    this.setState({ showStand: false
-      , showDiagrams: false
-      , showQuestions: !this.state.showQuestions
-      , showHelp: false});
+    if(this.state.pressSSol === true){
+      this.setState({ showStand: false
+        , showDiagrams: false
+        , showQuestions: !this.state.showQuestions
+        , showHelp: false});
+    }
   };
   showHelpCard = () => {
     this.setState({ showStand: false
@@ -48,7 +56,7 @@ export default class MainPage extends Component{
       , showQuestions: false
       , showHelp: !this.state.showHelp});
   };
-  updateThisCounter = () => {
+  wasSSolpressed = () => {
     if(this.state.pressSSol === false){
       this.setState({
         count: this.state.count + 1
@@ -60,15 +68,23 @@ export default class MainPage extends Component{
     });
   };
 
+  fineshedQuestions = () => {
+    if(this.questionsAnswered === false){
+      this.setState({
+        questionsAnswered: true
+      });
+    }
+  };
+
   render() {
     return (
       <View style={styles.mainPage}>
-        <Header triggerParentUpdate={this.updateThisCounter}/>
+        <Header SSolButton={this.wasSSolpressed}/>
           <View style = {styles.mainPageCard}>
           {this.state.showStand ? <CardStand/> :
           (this.state.showDiagrams ? <CardDiagram/> :
-          (this.state.showQuestions ? <CardQuestions/> :
-          (this.state.showHelp ? <CardHelp/> : null)))}
+          (this.state.showQuestions ? <CardQuestions answeredAll={this.fineshedQuestions}/> :
+          (this.state.showHelp ? <CardHelp/> : <Image source={SSolImage} style={{width: 300, height: 300}}/>)))}
           </View>
           <View style = {styles.buttonPage}>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator = {false} style={styles.buttonView}>

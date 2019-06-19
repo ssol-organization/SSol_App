@@ -11,12 +11,10 @@ export default class Header extends Component{
     return (
       <View>
         <StatusBar
-        backgroundColor = '#5DADE2'
+        backgroundColor = '#58A9EB'
         />
-      <TouchableOpacity onPress={this.props.triggerParentUpdate}>
-        <View style={styles.header}>
+      <TouchableOpacity style={styles.header} onPress={this.props.SSolButton}>
           <Text style={styles.headerText}>SSol</Text>
-        </View>
       </TouchableOpacity>
       </View>
     );

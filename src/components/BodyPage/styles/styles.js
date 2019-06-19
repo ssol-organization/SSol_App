@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
   },
   mainPage: {
     flex: 1,
-    backgroundColor: '#5DADE2'
+    backgroundColor: '#58A9EB'
+    // backgroundColor: '#5DADE2'
   },
   mainPageCard: {
     flex: 1,

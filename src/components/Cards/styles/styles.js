@@ -56,7 +56,9 @@ const styles = StyleSheet.create({
     margin: 10
   },
   score:{
-    alignSelf: 'flex-end',
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
     margin: 10,
     marginTop: 15
   },
