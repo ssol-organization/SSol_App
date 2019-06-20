@@ -7,7 +7,7 @@ const nyanCat = require('../../../images/nyanCat.gif')
 const sealJudging = require('../../../images/sealJudging.gif')
 var buttonsChoices = {0:"A", 1:"B", 2:"C", 3:"D", 4:"E", 5:"F", 6:"G", 7:"H", 8:"I", 9:"J", 10:"K", 11:"L"};
 var questionsTitles = {0:"Questão 1", 1:"Questão 2", 2:"Questão 3", 3:"Questão 4"};
-var questionsAnswers = {0:"Resposta 1", 1:"Resposta 2", 2:"Resposta 3", 3:"Resposta 4"};
+var questionsAnswers = {0:"", 1:"A resposta correta é:", 2:"Resposta 3", 3:"Resposta 4"};
 
 export default class CardGraph extends Component{
   constructor(props){
@@ -120,6 +120,10 @@ export default class CardGraph extends Component{
     })
 
     this.randomQuestion();
+
+    if(this.state.counterButtons === 4){
+      this.props.answeredAll = true;
+    }
   };
 
   buttonConfirmPressed = () => {
@@ -267,9 +271,7 @@ export default class CardGraph extends Component{
               </View>
             )
             :
-            <TouchableOpacity style={{backgroundColor: 'red'}} onPress={this.props.answeredAll}>
-              <Text>Teste</Text>
-            </TouchableOpacity>}
+            null}
             </ScrollView>
           </View>)
           :
@@ -288,7 +290,7 @@ export default class CardGraph extends Component{
                 <Text style={styles.cardTitle}>Você Errou</Text>
                 <Image source={sealJudging} style={styles.imageShape}/>
                 <View>
-                  <Text style={styles.cardTitle}>{this.state.answers}</Text>
+                  <Text style={styles.cardTitle}>A resposta correta é:</Text>
                 </View>
                 <TouchableOpacity style={styles.anyButton} onPress={this.buttonNextPress}>
                   <Text style={styles.buttonText}>Próximo</Text>

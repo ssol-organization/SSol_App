@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     width: '95%',
     height: 225,
     alignSelf: 'center',
-    borderRadius: 20
   },
   graphTitle: {
     fontSize: 20,

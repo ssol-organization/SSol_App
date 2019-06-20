@@ -11,6 +11,13 @@ import styles from './styles/styles.js';
 
 const SSolImage = require('../../images/SSolImage.png')
 
+var urlImages  = {0: "https://calculusapi.herokuapp.com/get_diagram?tipo=0&p=",
+                  1: "https://calculusapi.herokuapp.com/get_diagram?tipo=1&p=",
+                  2: "https://calculusapi.herokuapp.com/get_diagram?tipo=2&p=",
+                  3: "https://calculusapi.herokuapp.com/get_diagram?tipo=3&p=",
+                  4: "https://calculusapi.herokuapp.com/get_diagram?tipo=4&p=",
+                  5: "https://calculusapi.herokuapp.com/get_diagram?tipo=5&p="};
+
 export default class MainPage extends Component{
   constructor(props) {
     super(props);
@@ -19,28 +26,27 @@ export default class MainPage extends Component{
       showStand: false,
       showQuestions: false,
       showHelp: false,
-      fotos: [],
       count: 0,
       pressSSol: false,
       questionsAnswered: false
 
     };
     this.wasSSolpressed = this.wasSSolpressed.bind(this);
-    this.fineshedQuestions = this.fineshedQuestions.bind(this);
+    // this.fineshedQuestions = this.fineshedQuestions.bind(this);
   }
   showStandCard = () => {
-    this.setState({ showStand: !this.state.showStand
-      , showDiagrams: false
-      , showQuestions: false
-      , showHelp: false});
+    if(this.state.pressSSol === true){
+      this.setState({ showStand: !this.state.showStand
+        , showDiagrams: false
+        , showQuestions: false
+        , showHelp: false});
+      }
   };
   showDiagramsCard = () => {
-    if(this.questionsAnswered === true){
       this.setState({ showStand: false
         , showDiagrams: !this.state.showDiagrams
         , showQuestions: false
         , showHelp: false});
-    }
   };
   showQuestionsCard = () => {
     if(this.state.pressSSol === true){
@@ -49,7 +55,9 @@ export default class MainPage extends Component{
         , showQuestions: !this.state.showQuestions
         , showHelp: false});
     }
+
   };
+
   showHelpCard = () => {
     this.setState({ showStand: false
       , showDiagrams: false
@@ -57,21 +65,40 @@ export default class MainPage extends Component{
       , showHelp: !this.state.showHelp});
   };
   wasSSolpressed = () => {
+    fetch('http://calculusapi.herokuapp.com/generate_new');
     if(this.state.pressSSol === false){
       this.setState({
-        count: this.state.count + 1
+        count: (this.state.count+1)%2,
+        pressSSol: true
+      })
+    } else {
+      this.setState({
+        count: (this.state.count+1)%2,
+        showDiagrams: false,
+        showStand: false,
+        showQuestions: false,
+        showHelp: false,
+        questionsAnswered: false
       });
-      console.log(this.state.count%2);
+
+      let num = Math.random()*5;
+      num = Math.floor(num);
+
+      urlImages[0] = urlImages[0].concat(String(num));
+      urlImages[1] = urlImages[1].concat(String(num));
+      urlImages[2] = urlImages[2].concat(String(num));
+      urlImages[3] = urlImages[3].concat(String(num));
+      urlImages[4] = urlImages[4].concat(String(num));
+      urlImages[5] = urlImages[5].concat(String(num));
+
     }
-    this.setState({
-      pressSSol: true
-    });
   };
 
   fineshedQuestions = () => {
-    if(this.questionsAnswered === false){
+    console.log('FOI!');
+    if(this.questionsAnswered === true){
       this.setState({
-        questionsAnswered: true
+        questionsAnswered: false
       });
     }
   };
@@ -82,7 +109,7 @@ export default class MainPage extends Component{
         <Header SSolButton={this.wasSSolpressed}/>
           <View style = {styles.mainPageCard}>
           {this.state.showStand ? <CardStand/> :
-          (this.state.showDiagrams ? <CardDiagram/> :
+          (this.state.showDiagrams ? <CardDiagram urlImages={urlImages}/> :
           (this.state.showQuestions ? <CardQuestions answeredAll={this.fineshedQuestions}/> :
           (this.state.showHelp ? <CardHelp/> : <Image source={SSolImage} style={{width: 300, height: 300}}/>)))}
           </View>
