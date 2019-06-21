@@ -3,13 +3,6 @@ import { Text, View, Animated, Image, ScrollView, Button } from 'react-native';
 
 import styles from '../styles/styles.js';
 
-// var urlOne = "https://calculusapi.herokuapp.com/get_diagram?tipo=0&p=";
-// var urlTwo = "https://calculusapi.herokuapp.com/get_diagram?tipo=1&p=";
-// var urlThree = "https://calculusapi.herokuapp.com/get_diagram?tipo=2&p=";
-// var urlFour = "https://calculusapi.herokuapp.com/get_diagram?tipo=3&p=";
-// var urlFive = "https://calculusapi.herokuapp.com/get_diagram?tipo=4&p=";
-// var urlSix = "https://calculusapi.herokuapp.com/get_diagram?tipo=5&p=";
-
 export default class CardGraph extends Component{
   state = {
     fadeAnim: new Animated.Value(0),

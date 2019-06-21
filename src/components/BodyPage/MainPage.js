@@ -111,7 +111,7 @@ export default class MainPage extends Component{
           {this.state.showStand ? <CardStand/> :
           (this.state.showDiagrams ? <CardDiagram urlImages={urlImages}/> :
           (this.state.showQuestions ? <CardQuestions answeredAll={this.fineshedQuestions}/> :
-          (this.state.showHelp ? <CardHelp/> : <Image source={SSolImage} style={{width: 300, height: 300}}/>)))}
+          (this.state.showHelp ? <CardHelp/> : <Image source={SSolImage} style={{width: 400, height: 400}}/>)))}
           </View>
           <View style = {styles.buttonPage}>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator = {false} style={styles.buttonView}>

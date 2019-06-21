@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
   },
   mainPage: {
     flex: 1,
-    backgroundColor: '#58A9EB'
+    backgroundColor: '#00A9EE'
+    // backgroundColor: '#58A9EB'
   },
   mainPageCard: {
     flex: 1,
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
     height: 80,
-    width: width/3 -10,
+    width: width/3 -13,
     margin: 5,
     marginBottom: 10,
     borderRadius: 5,

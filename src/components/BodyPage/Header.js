@@ -11,7 +11,7 @@ export default class Header extends Component{
     return (
       <View>
         <StatusBar
-        backgroundColor = '#58A9EB'
+        backgroundColor = '#00A9EE'
         />
       <TouchableOpacity style={styles.header} onPress={this.props.SSolButton}>
           <Text style={styles.headerText}>SSol</Text>

@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     margin: 10
   },
   anyButton:{
-    backgroundColor: '#5DADE2',
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
     borderRadius: 10,
     padding: 10,
     margin: 10
