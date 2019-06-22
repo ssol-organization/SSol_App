@@ -15,6 +15,7 @@ var questionOne = {0:"No diagrama de corpo livre, qual seria o módulo da força
                    1:"Quais os valores das reações dos apoios A e B?",
                    2:"Qual o valor do esforço cortante para o trecho à direita do apoio B?",
                    3:"Caso a carga distribuída mudasse de retangular para uma triangular, como ficariam os diagramas para o trecho dessa nova carga?"};
+
 var questionTwo = {0:"Qual será o resultado da componente vertical do primeiro apoio?",
                    1:"Qual será o resultado da componente vertical do segundo apoio?",
                    2:"Como ficará o gráfico do esforço cortante?",
@@ -31,9 +32,9 @@ export default class CardQuestions extends Component{
       buttonAnswer: {1: false,2: false, 3: false},
       buttonNext: false,
       buttonConfirm:false,
-      buttonNumber: {1: "", 2: "", 3: ""},
+      buttonPosition: {1: "", 2: "", 3: ""},
       cardTitle:"",
-      counterButtons: 1,
+      counter: 1,
       score: 0,
       showDiagrams: false,
       buttonSelected: {1: false, 2: false, 3: false},
@@ -80,19 +81,19 @@ export default class CardQuestions extends Component{
       case 0:
         this.setState({
           buttonAnswer: {1: true, 2: this.state.buttonAnswer[2], 3: this.state.buttonAnswer[3]},
-          buttonNumber:{1: buttonsChoices[num+1], 2: buttonsChoices[num], 3:buttonsChoices[num+2]}
+          buttonPosition:{1: buttonsChoices[num+1], 2: buttonsChoices[num], 3:buttonsChoices[num+2]}
         })
         break;
       case 1:
         this.setState({
           buttonAnswer: {1: this.state.buttonAnswer[1], 2: true, 3: this.state.buttonAnswer[3]},
-          buttonNumber:{1: buttonsChoices[num+1], 2: buttonsChoices[num], 3:buttonsChoices[num-1]}
+          buttonPosition:{1: buttonsChoices[num+1], 2: buttonsChoices[num], 3:buttonsChoices[num-1]}
         })
         break;
       case 2:
         this.setState({
           buttonAnswer: {1: this.state.buttonAnswer[1], 2: this.state.buttonAnswer[2], 3: true},
-          buttonNumber:{1: buttonsChoices[num-2], 2: buttonsChoices[num], 3:buttonsChoices[num-1]}
+          buttonPosition:{1: buttonsChoices[num-2], 2: buttonsChoices[num], 3:buttonsChoices[num-1]}
           })
         break;
     };
@@ -105,25 +106,25 @@ export default class CardQuestions extends Component{
       case 0:
         this.setState({
           buttonAnswer: {1: true, 2: this.state.buttonAnswer[2], 3: this.state.buttonAnswer[3]},
-          buttonNumber:{1: buttonsChoices[num+((this.state.counterButtons)*3)+1],
-            2: buttonsChoices[num+((this.state.counterButtons)*3)],
-            3: buttonsChoices[num+((this.state.counterButtons)*3)+2]}
+          buttonPosition:{1: buttonsChoices[num+((this.state.counter)*3)+1],
+            2: buttonsChoices[num+((this.state.counter)*3)],
+            3: buttonsChoices[num+((this.state.counter)*3)+2]}
           })
       break;
       case 1:
         this.setState({
           buttonAnswer: {1: this.state.buttonAnswer[1], 2: true, 3: this.state.buttonAnswer[3]},
-          buttonNumber:{1: buttonsChoices[num+((this.state.counterButtons)*3)+1],
-            2: buttonsChoices[num+((this.state.counterButtons)*3)],
-            3: buttonsChoices[num+((this.state.counterButtons)*3)-1]}
+          buttonPosition:{1: buttonsChoices[num+((this.state.counter)*3)+1],
+            2: buttonsChoices[num+((this.state.counter)*3)],
+            3: buttonsChoices[num+((this.state.counter)*3)-1]}
         })
       break;
       case 2:
         this.setState({
           buttonAnswer: {1: this.state.buttonAnswer[1], 2: this.state.buttonAnswer[2], 3: true},
-          buttonNumber:{1: buttonsChoices[num+((this.state.counterButtons)*3)-2],
-            2: buttonsChoices[num+((this.state.counterButtons)*3)],
-            3: buttonsChoices[num+((this.state.counterButtons)*3)-1]}
+          buttonPosition:{1: buttonsChoices[num+((this.state.counter)*3)-2],
+            2: buttonsChoices[num+((this.state.counter)*3)],
+            3: buttonsChoices[num+((this.state.counter)*3)-1]}
         })
       break;
       };
@@ -134,15 +135,15 @@ export default class CardQuestions extends Component{
       buttonNext: true,
       buttonConfirm: false,
       buttonAnswer: {1: false,2: false, 3: false},
-      counterButtons:this.state.counterButtons+1,
+      counter:this.state.counter+1,
       buttonSelected: {1: false, 2: false, 3: false},
       pressed: {1: false, 2: false, 3: false},
-      questions:questionText[this.state.counterButtons],
+      questions:questionText[this.state.counter],
     })
 
     this.randomQuestion();
 
-    if(this.state.counterButtons === 4){
+    if(this.state.counter === 4){
       this.props.answeredAll = true;
     }
   };
@@ -150,7 +151,8 @@ export default class CardQuestions extends Component{
   buttonConfirmPressed = () => {
     if(this.state.pressed[1] === false && this.state.pressed[2] === false && this.state.pressed[3] === false){
       null;
-    } else {
+    }
+    else {
       this.setState({
         buttonNext: true,
         buttonConfirm: true,
@@ -166,21 +168,24 @@ export default class CardQuestions extends Component{
           error: false,
           score:this.state.score+1,
         })
-      }else if(this.state.buttonSelected2 === true && this.state.buttonAnswer[2] === true){
+      }
+      else if(this.state.buttonSelected[2] === true && this.state.buttonAnswer[2] === true){
         this.setState({
           error: false,
           score:this.state.score+1,
         })
-      } else if(this.state.buttonSelected3 === true && this.state.buttonAnswer3 === true){
+      }
+      else if(this.state.buttonSelected[3] === true && this.state.buttonAnswer[3] === true){
         this.setState({
           error: false,
           score:this.state.score+1,
         })
-      } else{
-      this.setState({
-        error: true,
-      })
-    }
+      }
+      else {
+        this.setState({
+          error: true,
+        })
+      }
     }
   };
 
@@ -245,25 +250,25 @@ export default class CardQuestions extends Component{
         {this.state.buttonConfirm === false ?
           <View style={styles.mainCard}>
             <ScrollView style={styles.contentCard} showsVerticalScrollIndicator={false}>
-            { this.state.counterButtons < 5 ?
+            { this.state.counter < 5 ?
               <View>
-                <Text style = {styles.cardTitle}>Questão {this.state.counterButtons}</Text>
+                <Text style = {styles.cardTitle}>Questão {this.state.counter}</Text>
                 <View style={{justifyContent:'space-between'}}>
                   <Text style={styles.plainText}>{this.state.questions}</Text>
                   <TouchableOpacity
                     style={(this.state.pressed[1] === true && this.state.buttonSelected[1] === true)?styles.selectedButton:styles.anyButton}
                     onPress={() => this.buttonSelected(1)}>
-                    <Text style={styles.buttonText}>{this.state.buttonNumber[1]}</Text>
+                    <Text style={styles.buttonText}>{this.state.buttonPosition[1]}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={(this.state.pressed[2] === true && this.state.buttonSelected[2] === true)?styles.selectedButton:styles.anyButton}
                     onPress={() => this.buttonSelected(2)}>
-                    <Text style={styles.buttonText}>{this.state.buttonNumber[2]}</Text>
+                    <Text style={styles.buttonText}>{this.state.buttonPosition[2]}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={(this.state.pressed[3] === true && this.state.buttonSelected[3] === true)?styles.selectedButton:styles.anyButton}
                     onPress={() => this.buttonSelected(3)}>
-                    <Text style={styles.buttonText}>{this.state.buttonNumber[3]}</Text>
+                    <Text style={styles.buttonText}>{this.state.buttonPosition[3]}</Text>
                   </TouchableOpacity>
                   <View>
                     <TouchableOpacity style={styles.anyButton} onPress={this.buttonConfirmPressed}>
@@ -273,17 +278,17 @@ export default class CardQuestions extends Component{
                 </View>
               </View>
             :
-            <View>
-              <Text style={styles.cardTitle}>Pontuação Total</Text>
-                <View style={styles.score}>
-                  <Text style={styles.scoreText}>{this.state.score}/4</Text>
-                </View>
-            </View>}
+              <View>
+                {this.props.finished()}
+                <Text style={styles.cardTitle}>Pontuação Total</Text>
+                  <View style={styles.score}>
+                    <Text style={styles.scoreText}>{this.state.score}/4</Text>
+                  </View>
+              </View>}
             </ScrollView>
             </View>
           :
           <View style={styles.mainCard}>
-            {this.props.finished}
             <View>
               {this.state.error === false ?(
                 <View>

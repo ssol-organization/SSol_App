@@ -26,8 +26,6 @@ const styles = StyleSheet.create({
     justifyContent:'space-around'
   },
   cardTitle: {
-    // marginTop: 10,
-    // marginBottom: 10,
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',

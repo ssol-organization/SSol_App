@@ -29,10 +29,9 @@ export default class MainPage extends Component{
       count: 0,
       pressSSol: false,
       questionsAnswered: false,
-      // finished: false
     };
     this.wasSSolpressed = this.wasSSolpressed.bind(this);
-    this.questionsFinished = this.questionsFinished.bind(this);
+    // this.questionsFinished = this.questionsFinished.bind(this);
   }
   showStandCard = () => {
     if(this.state.pressSSol === true){
@@ -71,7 +70,8 @@ export default class MainPage extends Component{
         count: (this.state.count+1)%2,
         pressSSol: true
       })
-    } else {
+    }
+    else {
       this.setState({
         count: (this.state.count+1)%2,
         showDiagrams: false,
@@ -88,12 +88,11 @@ export default class MainPage extends Component{
         urlImages[i] = urlImages[i].concat(String(num));
       }
     }
+    return finished = false;
   };
+
   questionsFinished = () => {
-    // this.setState({
-    //   finished: true
-    // });
-    console.log("Teste!");
+    return finished = true;
   };
 
   render() {
@@ -102,7 +101,7 @@ export default class MainPage extends Component{
         <Header SSolButton={this.wasSSolpressed}/>
           <View style = {styles.mainPageCard}>
           {this.state.showStand? <CardStand/> :
-          (this.state.showDiagrams ? <CardDiagram urlImages={urlImages}/> :
+          ((this.state.showDiagrams && finished === true) ? <CardDiagram urlImages={urlImages}/> :
           (this.state.showQuestions ? <CardQuestions counterBin = {this.state.count} finished = {this.questionsFinished}/> :
           (this.state.showHelp ? <CardHelp/> : <Image source={SSolImage} style={{width: 400, height: 400}}/>)))}
           </View>
