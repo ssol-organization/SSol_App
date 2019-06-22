@@ -18,13 +18,34 @@ const styles = StyleSheet.create({
     height: height-343,
     marginBottom: 20,
   },
+  contentHelpCard: {
+    marginTop: 15,
+    width: width - 20,
+    height: height-343,
+    marginBottom: 20,
+    justifyContent:'space-around'
+  },
   cardTitle: {
-    marginTop: 10,
-    marginBottom: 15,
+    // marginTop: 10,
+    // marginBottom: 10,
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
     alignSelf: 'center',
+  },
+  secondTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    alignSelf: 'center',
+    margin: 5
+  },
+  thirdTitle: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#fff',
+    alignSelf: 'center',
+    marginLeft: 10
   },
   cardText: {
     color: '#fff',
@@ -35,13 +56,6 @@ const styles = StyleSheet.create({
     width: '95%',
     height: 225,
     alignSelf: 'center',
-  },
-  graphTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#fff',
-    alignSelf: 'center',
-    margin: 10
   },
   selectedButton: {
     backgroundColor: '#dddbdb',
@@ -72,13 +86,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     alignSelf: 'center',
   },
-  questionText:{
+  plainText:{
     color:'#fff',
     fontSize: 15,
-    alignSelf: 'center',
+    alignSelf: 'flex-start',
     fontWeight: 'bold',
+    marginTop: 10,
     marginLeft: 20,
-    marginRight: 20
+    marginRight: 20,
+    marginBottom: 5
   }
 });
 

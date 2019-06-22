@@ -32,7 +32,7 @@ export default class MainPage extends Component{
       // finished: false
     };
     this.wasSSolpressed = this.wasSSolpressed.bind(this);
-    // this.questionsFinished = this.questionsFinished.bind(this);
+    this.questionsFinished = this.questionsFinished.bind(this);
   }
   showStandCard = () => {
     if(this.state.pressSSol === true){
@@ -95,8 +95,7 @@ export default class MainPage extends Component{
     // });
     console.log("Teste!");
   };
-  // Colocar flag para abrir diagramas só quando terminar as questões
-  // Centralizar score view
+
   render() {
     return (
       <View style={styles.mainPage}>

@@ -22,7 +22,7 @@ var questionTwo = {0:"Qual será o resultado da componente vertical do primeiro 
 
 var questionText = {0:"", 1:"", 2:"", 3:""};
 
-export default class CardGraph extends Component{
+export default class CardQuestions extends Component{
   constructor(props){
     super(props);
     this.state = {
@@ -249,7 +249,7 @@ export default class CardGraph extends Component{
               <View>
                 <Text style = {styles.cardTitle}>Questão {this.state.counterButtons}</Text>
                 <View style={{justifyContent:'space-between'}}>
-                  <Text style={styles.questionText}>{this.state.questions}</Text>
+                  <Text style={styles.plainText}>{this.state.questions}</Text>
                   <TouchableOpacity
                     style={(this.state.pressed[1] === true && this.state.buttonSelected[1] === true)?styles.selectedButton:styles.anyButton}
                     onPress={() => this.buttonSelected(1)}>
