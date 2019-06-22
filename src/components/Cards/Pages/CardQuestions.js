@@ -5,9 +5,22 @@ import styles from '../styles/styles.js';
 
 const nyanCat = require('../../../images/nyanCat.gif')
 const sealJudging = require('../../../images/sealJudging.gif')
-var buttonsChoices = {0:"A", 1:"B", 2:"C", 3:"D", 4:"E", 5:"F", 6:"G", 7:"H", 8:"I", 9:"J", 10:"K", 11:"L"};
-var questionsTitles = {0:"Questão 1", 1:"Questão 2", 2:"Questão 3", 3:"Questão 4"};
-var questionsAnswers = {0:"", 1:"A resposta correta é:", 2:"Resposta 3", 3:"Resposta 4"};
+
+var buttonsChoices = {0:"", 1:"", 2:"", 3:"", 4:"", 5:"", 6:"", 7:"", 8:"", 9:"", 10:"", 11:""};
+
+var buttonsChoicesOne = {0:"10", 1:"5", 2:"2.5", 3:"0N, 20N e 5N", 4:"4.0625N, 0N e 20.9375N", 5:"20.9375N, 4.0625Nm e 0N", 6:"0.9375", 7:"0", 8:"2", 9:"O cortante deixaria de ser linear e seria uma cúbica e o momento seria uma parábola", 10:"O momento mudaria para uma cúbica e o cortante para uma parábola", 11:"Não haveriam mudanças nos gráficos"};
+var buttonsChoicesTwo = {0:"A", 1:"B", 2:"C", 3:"D", 4:"E", 5:"F", 6:"G", 7:"H", 8:"I", 9:"J", 10:"K", 11:"L"};
+
+var questionOne = {0:"No diagrama de corpo livre, qual seria o módulo da força concentrada da carga distribuída?",
+                   1:"Quais os valores das reações dos apoios A e B?",
+                   2:"Qual o valor do esforço cortante para o trecho à direita do apoio B?",
+                   3:"Caso a carga distribuída mudasse de retangular para uma triangular, como ficariam os diagramas para o trecho dessa nova carga?"};
+var questionTwo = {0:"Qual será o resultado da componente vertical do primeiro apoio?",
+                   1:"Qual será o resultado da componente vertical do segundo apoio?",
+                   2:"Como ficará o gráfico do esforço cortante?",
+                   3:"Como ficará o gráfico do momento fletor?"};
+
+var questionText = {0:"", 1:"", 2:"", 3:""};
 
 export default class CardGraph extends Component{
   constructor(props){
@@ -27,13 +40,13 @@ export default class CardGraph extends Component{
       counterButtons: 1,
       score: 0,
       showDiagrams: false,
-      answers: "",
       buttonSelected1: false,
       buttonSelected2: false,
       buttonSelected3: false,
       pressed1: false,
       pressed2: false,
       pressed3: false,
+      question: "",
     }
   }
 
@@ -47,6 +60,28 @@ export default class CardGraph extends Component{
   };
 
   componentWillMount() {
+    if(this.props.counterBin === 0){
+      this.setState({
+        questions:questionOne[0],
+      })
+      for (var i = 1; i < 4; i++) {
+        questionText[i] = questionOne[i];
+      }
+      for (var i = 0; i < 12; i++) {
+        buttonsChoices[i]=buttonsChoicesOne[i]
+      }
+    } else {
+      this.setState({
+        questions:questionTwo[0],
+      })
+      for (var i = 1; i < 4; i++) {
+        questionText[i] = questionTwo[i];
+      }
+      for (var i = 0; i < 12; i++) {
+        buttonsChoices[i]=buttonsChoicesTwo[i]
+      }
+    }
+
     let num = Math.random()*3;
     num = Math.floor(num);
     switch (num) {
@@ -69,11 +104,6 @@ export default class CardGraph extends Component{
           , buttonNumber3:buttonsChoices[num-1]})
         break;
     };
-
-    this.setState({
-      cardTitle:questionsTitles[this.state.counterButtons-1],
-      answers:questionsAnswers[this.state.counterButtons-1],
-    })
   }
 
   randomQuestion = () =>{
@@ -109,14 +139,13 @@ export default class CardGraph extends Component{
       buttonAnswer2: false,
       buttonAnswer3: false,
       counterButtons:this.state.counterButtons+1,
-      cardTitle:questionsTitles[this.state.counterButtons],
       buttonSelected1: false,
       buttonSelected2: false,
       buttonSelected3: false,
       pressed1: false,
       pressed2: false,
       pressed3: false,
-      answers:questionsAnswers[this.state.counterButtons],
+      questions:questionText[this.state.counterButtons],
     })
 
     this.randomQuestion();
@@ -239,43 +268,46 @@ export default class CardGraph extends Component{
             opacity: fadeAnim,
           }}
         >
-        {this.state.buttonConfirm === false ? (
+        {this.state.buttonConfirm === false ?
           <View style={styles.mainCard}>
-            <Text style = {styles.cardTitle}>{this.state.cardTitle}</Text>
             <ScrollView style={styles.contentCard} showsVerticalScrollIndicator={false}>
-            { this.state.counterButtons < 5 ? (
-              <View style={{justifyContent:'space-between'}}>
-                <TouchableOpacity
-                  style={(this.state.pressed1 === true && this.state.buttonSelected1 === true)?styles.selectedButton:styles.anyButton}
-                  onPress={() => this.buttonSelected(1)}>
-                  <Text style={styles.buttonText}>{this.state.buttonNumber1}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={(this.state.pressed2 === true && this.state.buttonSelected2 === true)?styles.selectedButton:styles.anyButton}
-                  onPress={() => this.buttonSelected(2)}>
-                  <Text style={styles.buttonText}>{this.state.buttonNumber2}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={(this.state.pressed3 === true && this.state.buttonSelected3 === true)?styles.selectedButton:styles.anyButton}
-                  onPress={() => this.buttonSelected(3)}>
-                  <Text style={styles.buttonText}>{this.state.buttonNumber3}</Text>
-                </TouchableOpacity>
-                <View>
-                  <TouchableOpacity style={styles.anyButton} onPress={this.buttonConfirmPressed}>
-                    <Text style={styles.buttonText}>Confirmar</Text>
+            { this.state.counterButtons < 5 ?
+              <View>
+                <Text style = {styles.cardTitle}>Questão {this.state.counterButtons}</Text>
+                <View style={{justifyContent:'space-between'}}>
+                  <Text style={styles.questionText}>{this.state.questions}</Text>
+                  <TouchableOpacity
+                    style={(this.state.pressed1 === true && this.state.buttonSelected1 === true)?styles.selectedButton:styles.anyButton}
+                    onPress={() => this.buttonSelected(1)}>
+                    <Text style={styles.buttonText}>{this.state.buttonNumber1}</Text>
                   </TouchableOpacity>
+                  <TouchableOpacity
+                    style={(this.state.pressed2 === true && this.state.buttonSelected2 === true)?styles.selectedButton:styles.anyButton}
+                    onPress={() => this.buttonSelected(2)}>
+                    <Text style={styles.buttonText}>{this.state.buttonNumber2}</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={(this.state.pressed3 === true && this.state.buttonSelected3 === true)?styles.selectedButton:styles.anyButton}
+                    onPress={() => this.buttonSelected(3)}>
+                    <Text style={styles.buttonText}>{this.state.buttonNumber3}</Text>
+                  </TouchableOpacity>
+                  <View>
+                    <TouchableOpacity style={styles.anyButton} onPress={this.buttonConfirmPressed}>
+                      <Text style={styles.buttonText}>Confirmar</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
+              </View>
+            :
+            <View>
+              <Text style={styles.cardTitle}>Pontuação Total</Text>
                 <View style={styles.score}>
                   <Text style={styles.scoreText}>{this.state.score}/4</Text>
                 </View>
-              </View>
-            )
-            :
-            null}
+            </View>}
             </ScrollView>
-          </View>)
+            </View>
           :
-          (
           <View style={styles.mainCard}>
             <View>
               {this.state.error === false ?(
@@ -299,7 +331,6 @@ export default class CardGraph extends Component{
               }
             </View>
           </View>
-          )
           }
       </Animated.View>
     );

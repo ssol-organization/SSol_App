@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     marginTop: 10,
+    marginBottom: 15,
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
@@ -55,9 +56,8 @@ const styles = StyleSheet.create({
     margin: 10
   },
   score:{
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
     margin: 10,
     marginTop: 15
   },
@@ -67,10 +67,18 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   buttonText:{
-    color: '#ffff',
+    color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
     alignSelf: 'center',
+  },
+  questionText:{
+    color:'#fff',
+    fontSize: 15,
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    marginLeft: 20,
+    marginRight: 20
   }
 });
 

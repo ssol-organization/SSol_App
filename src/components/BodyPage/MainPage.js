@@ -28,11 +28,11 @@ export default class MainPage extends Component{
       showHelp: false,
       count: 0,
       pressSSol: false,
-      questionsAnswered: false
-
+      questionsAnswered: false,
+      // finished: false
     };
     this.wasSSolpressed = this.wasSSolpressed.bind(this);
-    // this.fineshedQuestions = this.fineshedQuestions.bind(this);
+    // this.questionsFinished = this.questionsFinished.bind(this);
   }
   showStandCard = () => {
     if(this.state.pressSSol === true){
@@ -57,7 +57,6 @@ export default class MainPage extends Component{
     }
 
   };
-
   showHelpCard = () => {
     this.setState({ showStand: false
       , showDiagrams: false
@@ -66,6 +65,7 @@ export default class MainPage extends Component{
   };
   wasSSolpressed = () => {
     fetch('http://calculusapi.herokuapp.com/generate_new');
+
     if(this.state.pressSSol === false){
       this.setState({
         count: (this.state.count+1)%2,
@@ -78,39 +78,32 @@ export default class MainPage extends Component{
         showStand: false,
         showQuestions: false,
         showHelp: false,
-        questionsAnswered: false
+        questionsAnswered: false,
+        finished: false
       });
 
       let num = Math.random()*5;
       num = Math.floor(num);
-
-      urlImages[0] = urlImages[0].concat(String(num));
-      urlImages[1] = urlImages[1].concat(String(num));
-      urlImages[2] = urlImages[2].concat(String(num));
-      urlImages[3] = urlImages[3].concat(String(num));
-      urlImages[4] = urlImages[4].concat(String(num));
-      urlImages[5] = urlImages[5].concat(String(num));
-
+      for (var i = 0; i < 6 ; i++) {
+        urlImages[i] = urlImages[i].concat(String(num));
+      }
     }
   };
-
-  fineshedQuestions = () => {
-    console.log('FOI!');
-    if(this.questionsAnswered === true){
-      this.setState({
-        questionsAnswered: false
-      });
-    }
-  };
-
+  // questionsFinished = () => {
+    // this.setState({
+      // finished: true
+    // });
+  // };
+  // Colocar flag para abrir diagramas só quando terminar as questões
+  //
   render() {
     return (
       <View style={styles.mainPage}>
         <Header SSolButton={this.wasSSolpressed}/>
           <View style = {styles.mainPageCard}>
-          {this.state.showStand ? <CardStand/> :
+          {this.state.showStand? <CardStand/> :
           (this.state.showDiagrams ? <CardDiagram urlImages={urlImages}/> :
-          (this.state.showQuestions ? <CardQuestions answeredAll={this.fineshedQuestions}/> :
+          (this.state.showQuestions ? <CardQuestions counterBin = {this.state.count} finished = {this.questionsFinished}/> :
           (this.state.showHelp ? <CardHelp/> : <Image source={SSolImage} style={{width: 400, height: 400}}/>)))}
           </View>
           <View style = {styles.buttonPage}>
