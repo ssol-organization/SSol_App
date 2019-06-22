@@ -89,13 +89,14 @@ export default class MainPage extends Component{
       }
     }
   };
-  // questionsFinished = () => {
+  questionsFinished = () => {
     // this.setState({
-      // finished: true
+    //   finished: true
     // });
-  // };
+    console.log("Teste!");
+  };
   // Colocar flag para abrir diagramas só quando terminar as questões
-  //
+  // Centralizar score view
   render() {
     return (
       <View style={styles.mainPage}>

@@ -28,24 +28,16 @@ export default class CardGraph extends Component{
     this.state = {
       fadeAnim: new Animated.Value(0),
       error: false,
-      buttonAnswer1: false,
-      buttonAnswer2: false,
-      buttonAnswer3: false,
+      buttonAnswer: {1: false,2: false, 3: false},
       buttonNext: false,
       buttonConfirm:false,
-      buttonNumber1: "",
-      buttonNumber2: "",
-      buttonNumber3: "",
+      buttonNumber: {1: "", 2: "", 3: ""},
       cardTitle:"",
       counterButtons: 1,
       score: 0,
       showDiagrams: false,
-      buttonSelected1: false,
-      buttonSelected2: false,
-      buttonSelected3: false,
-      pressed1: false,
-      pressed2: false,
-      pressed3: false,
+      buttonSelected: {1: false, 2: false, 3: false},
+      pressed: {1: false, 2: false, 3: false},
       question: "",
     }
   }
@@ -86,22 +78,22 @@ export default class CardGraph extends Component{
     num = Math.floor(num);
     switch (num) {
       case 0:
-        this.setState({buttonAnswer1: true
-          , buttonNumber1:buttonsChoices[num+1]
-          , buttonNumber2:buttonsChoices[num]
-          , buttonNumber3:buttonsChoices[num+2]})
+        this.setState({
+          buttonAnswer: {1: true, 2: this.state.buttonAnswer[2], 3: this.state.buttonAnswer[3]},
+          buttonNumber:{1: buttonsChoices[num+1], 2: buttonsChoices[num], 3:buttonsChoices[num+2]}
+        })
         break;
       case 1:
-        this.setState({buttonAnswer2: true
-          , buttonNumber1:buttonsChoices[num+1]
-          , buttonNumber2:buttonsChoices[num]
-          , buttonNumber3:buttonsChoices[num-1]})
+        this.setState({
+          buttonAnswer: {1: this.state.buttonAnswer[1], 2: true, 3: this.state.buttonAnswer[3]},
+          buttonNumber:{1: buttonsChoices[num+1], 2: buttonsChoices[num], 3:buttonsChoices[num-1]}
+        })
         break;
       case 2:
-        this.setState({buttonAnswer3: true
-          , buttonNumber1:buttonsChoices[num-2]
-          , buttonNumber2:buttonsChoices[num]
-          , buttonNumber3:buttonsChoices[num-1]})
+        this.setState({
+          buttonAnswer: {1: this.state.buttonAnswer[1], 2: this.state.buttonAnswer[2], 3: true},
+          buttonNumber:{1: buttonsChoices[num-2], 2: buttonsChoices[num], 3:buttonsChoices[num-1]}
+          })
         break;
     };
   }
@@ -111,22 +103,28 @@ export default class CardGraph extends Component{
     num = Math.floor(num);
     switch (num) {
       case 0:
-        this.setState({buttonAnswer1: true
-          ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)+1]
-          ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
-          ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)+2]})
+        this.setState({
+          buttonAnswer: {1: true, 2: this.state.buttonAnswer[2], 3: this.state.buttonAnswer[3]},
+          buttonNumber:{1: buttonsChoices[num+((this.state.counterButtons)*3)+1],
+            2: buttonsChoices[num+((this.state.counterButtons)*3)],
+            3: buttonsChoices[num+((this.state.counterButtons)*3)+2]}
+          })
       break;
       case 1:
-        this.setState({buttonAnswer2: true
-          ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)+1]
-          ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
-          ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)-1]})
+        this.setState({
+          buttonAnswer: {1: this.state.buttonAnswer[1], 2: true, 3: this.state.buttonAnswer[3]},
+          buttonNumber:{1: buttonsChoices[num+((this.state.counterButtons)*3)+1],
+            2: buttonsChoices[num+((this.state.counterButtons)*3)],
+            3: buttonsChoices[num+((this.state.counterButtons)*3)-1]}
+        })
       break;
       case 2:
-        this.setState({buttonAnswer3: true
-          ,buttonNumber1:buttonsChoices[num+((this.state.counterButtons)*3)-2]
-          ,buttonNumber2:buttonsChoices[num+((this.state.counterButtons)*3)]
-          ,buttonNumber3:buttonsChoices[num+((this.state.counterButtons)*3)-1]})
+        this.setState({
+          buttonAnswer: {1: this.state.buttonAnswer[1], 2: this.state.buttonAnswer[2], 3: true},
+          buttonNumber:{1: buttonsChoices[num+((this.state.counterButtons)*3)-2],
+            2: buttonsChoices[num+((this.state.counterButtons)*3)],
+            3: buttonsChoices[num+((this.state.counterButtons)*3)-1]}
+        })
       break;
       };
   }
@@ -135,16 +133,10 @@ export default class CardGraph extends Component{
     this.setState({
       buttonNext: true,
       buttonConfirm: false,
-      buttonAnswer1: false,
-      buttonAnswer2: false,
-      buttonAnswer3: false,
+      buttonAnswer: {1: false,2: false, 3: false},
       counterButtons:this.state.counterButtons+1,
-      buttonSelected1: false,
-      buttonSelected2: false,
-      buttonSelected3: false,
-      pressed1: false,
-      pressed2: false,
-      pressed3: false,
+      buttonSelected: {1: false, 2: false, 3: false},
+      pressed: {1: false, 2: false, 3: false},
       questions:questionText[this.state.counterButtons],
     })
 
@@ -156,41 +148,35 @@ export default class CardGraph extends Component{
   };
 
   buttonConfirmPressed = () => {
-    if(this.state.pressed1 === false && this.state.pressed2 === false && this.state.pressed3 === false){
+    if(this.state.pressed[1] === false && this.state.pressed[2] === false && this.state.pressed[3] === false){
       null;
     } else {
       this.setState({
         buttonNext: true,
         buttonConfirm: true,
-        buttonAnswer1: false,
-        buttonAnswer2: false,
-        buttonAnswer3: false,
-        buttonSelected1: false,
-        buttonSelected2: false,
-        buttonSelected3: false,
-        pressed1: false,
-        pressed2: false,
-        pressed3: false,
+        buttonAnswer: {1: false, 2: false, 3: false},
+        buttonSelected: {1: false, 2: false, 3: false},
+        pressed: {1: false, 2: false, 3: false},
       });
 
       this.randomQuestion();
 
-      if(this.state.buttonSelected1 === true && this.state.buttonAnswer1 === true){
+      if(this.state.buttonSelected[1] === true && this.state.buttonAnswer[1] === true){
         this.setState({
           error: false,
           score:this.state.score+1,
         })
-      }else if(this.state.buttonSelected2 === true && this.state.buttonAnswer2 === true){
+      }else if(this.state.buttonSelected2 === true && this.state.buttonAnswer[2] === true){
         this.setState({
           error: false,
           score:this.state.score+1,
         })
-      }else if(this.state.buttonSelected3 === true && this.state.buttonAnswer3 === true){
+      } else if(this.state.buttonSelected3 === true && this.state.buttonAnswer3 === true){
         this.setState({
           error: false,
           score:this.state.score+1,
         })
-      }else{
+      } else{
       this.setState({
         error: true,
       })
@@ -199,60 +185,48 @@ export default class CardGraph extends Component{
   };
 
   buttonSelected = (selectedButton) => {
-    if(this.state.pressed1 === false){
+    if(this.state.pressed[1] === false){
       if(selectedButton===1){
         this.setState({
-          pressed1: true,
-          pressed2: false,
-          pressed3: false,
-          buttonSelected1: true,
-          buttonSelected2: false,
-          buttonSelected3: false,
+          pressed: {1: true, 2: false, 3: false},
+          buttonSelected: {1: true, 2: false, 3: false},
         })
       }
     }else{
       if(selectedButton===1){
         this.setState({
-          pressed1: false,
-          buttonSelected1: false,
+          pressed: {1: false, 2: this.state.pressed[2], 3: this.state.pressed[3]},
+          buttonSelected: {1: false, 2: this.state.buttonSelected[2], 3: this.state.buttonSelected[3]}
         })
       }
     }
-    if(this.state.pressed2 === false){
+    if(this.state.pressed[2] === false){
       if(selectedButton===2){
         this.setState({
-          pressed1: false,
-          pressed2: true,
-          pressed3: false,
-          buttonSelected1: false,
-          buttonSelected2: true,
-          buttonSelected3: false,
+          pressed: {1: false, 2: true, 3: false},
+          buttonSelected: {1: false, 2: true, 3: false}
         })
       }
     }else{
       if(selectedButton===2){
         this.setState({
-          pressed2: false,
-          buttonSelected2: false,
+          pressed: {1: this.state.pressed[1], 2: false, 3: this.state.pressed[3]},
+          buttonSelected: {1: this.state.buttonSelected[1], 2: false, 3: this.state.buttonSelected[3]}
         })
       }
     }
-    if(this.state.pressed3 === false){
+    if(this.state.pressed[3] === false){
       if(selectedButton===3){
         this.setState({
-          pressed1: false,
-          pressed2: false,
-          pressed3: true,
-          buttonSelected1: false,
-          buttonSelected2: false,
-          buttonSelected3: true,
+          pressed: {1: false, 2: false, 3: true},
+          buttonSelected: {1: false, 2: false, 3: true}
         })
       }
     }else{
       if(selectedButton===3){
         this.setState({
-          pressed3: false,
-          buttonSelected3: false,
+          pressed: {1: this.state.pressed[1], 2: this.state.pressed[2], 3: false},
+          buttonSelected: {1: this.state.buttonSelected[1], 2: this.state.buttonSelected[2], 3: false}
         })
       }
     }
@@ -277,19 +251,19 @@ export default class CardGraph extends Component{
                 <View style={{justifyContent:'space-between'}}>
                   <Text style={styles.questionText}>{this.state.questions}</Text>
                   <TouchableOpacity
-                    style={(this.state.pressed1 === true && this.state.buttonSelected1 === true)?styles.selectedButton:styles.anyButton}
+                    style={(this.state.pressed[1] === true && this.state.buttonSelected[1] === true)?styles.selectedButton:styles.anyButton}
                     onPress={() => this.buttonSelected(1)}>
-                    <Text style={styles.buttonText}>{this.state.buttonNumber1}</Text>
+                    <Text style={styles.buttonText}>{this.state.buttonNumber[1]}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={(this.state.pressed2 === true && this.state.buttonSelected2 === true)?styles.selectedButton:styles.anyButton}
+                    style={(this.state.pressed[2] === true && this.state.buttonSelected[2] === true)?styles.selectedButton:styles.anyButton}
                     onPress={() => this.buttonSelected(2)}>
-                    <Text style={styles.buttonText}>{this.state.buttonNumber2}</Text>
+                    <Text style={styles.buttonText}>{this.state.buttonNumber[2]}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={(this.state.pressed3 === true && this.state.buttonSelected3 === true)?styles.selectedButton:styles.anyButton}
+                    style={(this.state.pressed[3] === true && this.state.buttonSelected[3] === true)?styles.selectedButton:styles.anyButton}
                     onPress={() => this.buttonSelected(3)}>
-                    <Text style={styles.buttonText}>{this.state.buttonNumber3}</Text>
+                    <Text style={styles.buttonText}>{this.state.buttonNumber[3]}</Text>
                   </TouchableOpacity>
                   <View>
                     <TouchableOpacity style={styles.anyButton} onPress={this.buttonConfirmPressed}>
@@ -309,6 +283,7 @@ export default class CardGraph extends Component{
             </View>
           :
           <View style={styles.mainCard}>
+            {this.props.finished}
             <View>
               {this.state.error === false ?(
                 <View>
