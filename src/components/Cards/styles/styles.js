@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     bottom: 70,
   },
   contentCard: {
+    flexGrow: 1,
     marginTop: 15,
     width: width - 20,
     height: height-343,
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
     margin: 10
   },
   score:{
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     margin: 10,

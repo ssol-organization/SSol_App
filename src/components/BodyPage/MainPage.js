@@ -28,10 +28,9 @@ export default class MainPage extends Component{
       showHelp: false,
       count: 0,
       pressSSol: false,
-      questionsAnswered: false,
+      finished: false
     };
     this.wasSSolpressed = this.wasSSolpressed.bind(this);
-    // this.questionsFinished = this.questionsFinished.bind(this);
   }
   showStandCard = () => {
     if(this.state.pressSSol === true){
@@ -42,10 +41,12 @@ export default class MainPage extends Component{
       }
   };
   showDiagramsCard = () => {
+    if(this.state.finished === true){
       this.setState({ showStand: false
         , showDiagrams: !this.state.showDiagrams
         , showQuestions: false
         , showHelp: false});
+    }
   };
   showQuestionsCard = () => {
     if(this.state.pressSSol === true){
@@ -54,7 +55,6 @@ export default class MainPage extends Component{
         , showQuestions: !this.state.showQuestions
         , showHelp: false});
     }
-
   };
   showHelpCard = () => {
     this.setState({ showStand: false
@@ -63,8 +63,6 @@ export default class MainPage extends Component{
       , showHelp: !this.state.showHelp});
   };
   wasSSolpressed = () => {
-    fetch('http://calculusapi.herokuapp.com/generate_new');
-
     if(this.state.pressSSol === false){
       this.setState({
         count: (this.state.count+1)%2,
@@ -92,16 +90,17 @@ export default class MainPage extends Component{
   };
 
   questionsFinished = () => {
-    return finished = true;
+    fetch('http://calculusapi.herokuapp.com/generate_new');
+    return this.state.finished = true;
   };
-
+  
   render() {
     return (
       <View style={styles.mainPage}>
         <Header SSolButton={this.wasSSolpressed}/>
           <View style = {styles.mainPageCard}>
           {this.state.showStand? <CardStand/> :
-          ((this.state.showDiagrams && finished === true) ? <CardDiagram urlImages={urlImages}/> :
+          ((this.state.showDiagrams && this.state.finished === true) ? <CardDiagram urlImages={urlImages}/> :
           (this.state.showQuestions ? <CardQuestions counterBin = {this.state.count} finished = {this.questionsFinished}/> :
           (this.state.showHelp ? <CardHelp/> : <Image source={SSolImage} style={{width: 400, height: 400}}/>)))}
           </View>
