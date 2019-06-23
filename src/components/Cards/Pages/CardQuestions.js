@@ -105,26 +105,26 @@ export default class CardQuestions extends Component{
     switch (num) {
       case 0:
         this.setState({
-          buttonAnswer: {1: true, 2: this.state.buttonAnswer[2], 3: this.state.buttonAnswer[3]},
+          buttonAnswer: {1: true, 2: false, 3: false},
           buttonPosition:{1: buttonsChoices[num+((this.state.counter)*3)+1],
-            2: buttonsChoices[num+((this.state.counter)*3)],
-            3: buttonsChoices[num+((this.state.counter)*3)+2]}
+                          2: buttonsChoices[num+((this.state.counter)*3)],
+                          3: buttonsChoices[num+((this.state.counter)*3)+2]}
           })
       break;
       case 1:
         this.setState({
-          buttonAnswer: {1: this.state.buttonAnswer[1], 2: true, 3: this.state.buttonAnswer[3]},
+          buttonAnswer: {1: false, 2: true, 3: false},
           buttonPosition:{1: buttonsChoices[num+((this.state.counter)*3)+1],
-            2: buttonsChoices[num+((this.state.counter)*3)],
-            3: buttonsChoices[num+((this.state.counter)*3)-1]}
+                          2: buttonsChoices[num+((this.state.counter)*3)],
+                          3: buttonsChoices[num+((this.state.counter)*3)-1]}
         })
       break;
       case 2:
         this.setState({
-          buttonAnswer: {1: this.state.buttonAnswer[1], 2: this.state.buttonAnswer[2], 3: true},
+          buttonAnswer: {1: false, 2: false, 3: true},
           buttonPosition:{1: buttonsChoices[num+((this.state.counter)*3)-2],
-            2: buttonsChoices[num+((this.state.counter)*3)],
-            3: buttonsChoices[num+((this.state.counter)*3)-1]}
+                          2: buttonsChoices[num+((this.state.counter)*3)],
+                          3: buttonsChoices[num+((this.state.counter)*3)-1]}
         })
       break;
       };
@@ -134,10 +134,10 @@ export default class CardQuestions extends Component{
     this.setState({
       buttonNext: true,
       buttonConfirm: false,
-      buttonAnswer: {1: false,2: false, 3: false},
-      counter:this.state.counter+1,
+      buttonAnswer: {1: false, 2: false, 3: false},
       buttonSelected: {1: false, 2: false, 3: false},
       pressed: {1: false, 2: false, 3: false},
+      counter:this.state.counter+1,
       questions:questionText[this.state.counter],
     })
 
