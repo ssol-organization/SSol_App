@@ -13,10 +13,9 @@ const SSolImage = require('../../images/SSolImage.png')
 
 var urlImages  = {0: "https://calculusapi.herokuapp.com/get_diagram?tipo=0&p=",
                   1: "https://calculusapi.herokuapp.com/get_diagram?tipo=1&p=",
-                  2: "https://calculusapi.herokuapp.com/get_diagram?tipo=2&p=",
-                  3: "https://calculusapi.herokuapp.com/get_diagram?tipo=3&p=",
-                  4: "https://calculusapi.herokuapp.com/get_diagram?tipo=4&p=",
-                  5: "https://calculusapi.herokuapp.com/get_diagram?tipo=5&p="};
+                  2: "https://calculusapi.herokuapp.com/get_diagram?tipo=3&p=",
+                  3: "https://calculusapi.herokuapp.com/get_diagram?tipo=4&p=",
+                  4: "https://calculusapi.herokuapp.com/get_diagram?tipo=5&p="};
 
 export default class MainPage extends Component{
   constructor(props) {
@@ -63,6 +62,7 @@ export default class MainPage extends Component{
       , showHelp: !this.state.showHelp});
   };
   wasSSolpressed = () => {
+    fetch('http://calculusapi.herokuapp.com/generate_new');
     if(this.state.pressSSol === false){
       this.setState({
         count: (this.state.count+1)%2,
@@ -80,9 +80,9 @@ export default class MainPage extends Component{
         finished: false
       });
 
-      let num = Math.random()*5;
+      let num = Math.random()*4;
       num = Math.floor(num);
-      for (var i = 0; i < 6 ; i++) {
+      for (var i = 0; i < 5 ; i++) {
         urlImages[i] = urlImages[i].concat(String(num));
       }
     }
@@ -90,10 +90,9 @@ export default class MainPage extends Component{
   };
 
   questionsFinished = () => {
-    fetch('http://calculusapi.herokuapp.com/generate_new');
     return this.state.finished = true;
   };
-  
+
   render() {
     return (
       <View style={styles.mainPage}>
@@ -101,8 +100,10 @@ export default class MainPage extends Component{
           <View style = {styles.mainPageCard}>
           {this.state.showStand? <CardStand/> :
           ((this.state.showDiagrams && this.state.finished === true) ? <CardDiagram urlImages={urlImages}/> :
-          (this.state.showQuestions ? <CardQuestions counterBin = {this.state.count} finished = {this.questionsFinished}/> :
-          (this.state.showHelp ? <CardHelp/> : <Image source={SSolImage} style={{width: 400, height: 400}}/>)))}
+          (this.state.showQuestions ? <CardQuestions counterBin = {this.state.count}
+                                                     finished = {this.questionsFinished}
+                                                     allDone={this.state.finished}/> :
+          (this.state.showHelp ? <CardHelp/> : <Image source={SSolImage} style={styles.mainImage}/>)))}
           </View>
           <View style = {styles.buttonPage}>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator = {false} style={styles.buttonView}>

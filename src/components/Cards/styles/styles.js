@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: width - 20,
     height: height-270,
-    top: -15,
+    top: -10,
     bottom: 70,
   },
   contentCard: {
@@ -27,20 +27,22 @@ const styles = StyleSheet.create({
     justifyContent:'space-around'
   },
   cardTitle: {
+    top: 10,
+    bottom: 10,
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
     alignSelf: 'center',
   },
   secondTitle: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#fff',
     alignSelf: 'center',
     margin: 5
   },
   thirdTitle: {
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#fff',
     alignSelf: 'center',
@@ -53,8 +55,18 @@ const styles = StyleSheet.create({
   },
   imageShape: {
     width: '95%',
-    height: 225,
+    height: 170,
     alignSelf: 'center',
+    marginTop: 10,
+    marginBottom: 10
+  },
+  graphShape: {
+    width: '100%',
+    height: 250,
+    alignSelf: 'center',
+    resizeMode:"center"
+    // marginTop: 10,
+    // marginBottom: 10,
   },
   selectedButton: {
     backgroundColor: '#dddbdb',
@@ -72,13 +84,18 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    width: width,
+    height: height-270,
     margin: 10,
-    marginTop: 15
+    marginTop: 15,
+    flex: 1,
   },
   scoreText:{
-    fontSize: 35,
+    fontSize: 90,
     fontWeight: 'bold',
     color: '#fff',
+    right: 13,
+    bottom: 100
   },
   buttonText:{
     color: '#fff',

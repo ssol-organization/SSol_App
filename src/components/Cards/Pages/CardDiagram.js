@@ -30,27 +30,23 @@ export default class CardGraph extends Component{
           <ScrollView style={styles.contentCard} showsVerticalScrollIndicator={false}>
             <Text style={styles.secondTitle}>Diagrama Estrutural</Text>
             <Image source={{uri: this.props.urlImages[0]}}
-              style={styles.imageShape}
+              style={styles.graphShape}
             />
             <Text style={styles.secondTitle}>Forças de reação</Text>
             <Image source={{uri: this.props.urlImages[1]}}
-              style={styles.imageShape}
-            />
-            <Text style={styles.secondTitle}>Axial</Text>
-            <Image source={{uri: this.props.urlImages[2]}}
-              style={styles.imageShape}
+              style={styles.graphShape}
             />
             <Text style={styles.secondTitle}>Esforço Cortante</Text>
-            <Image source={{uri: this.props.urlImages[3]}}
-              style={styles.imageShape}
+            <Image source={{uri: this.props.urlImages[2]}}
+              style={styles.graphShape}
             />
             <Text style={styles.secondTitle}>Momento Fletor</Text>
-            <Image source={{uri: this.props.urlImages[4]}}
-              style={styles.imageShape}
+            <Image source={{uri: this.props.urlImages[3]}}
+              style={styles.graphShape}
             />
             <Text style={styles.secondTitle}>Deflexão</Text>
-            <Image source={{uri: this.props.urlImages[5]}}
-              style={styles.imageShape}
+            <Image source={{uri: this.props.urlImages[4]}}
+              style={styles.graphShape}
             />
           </ScrollView>
         </View>

@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
   mainPage: {
     flex: 1,
     backgroundColor: '#00A9EE'
-    // backgroundColor: '#58A9EB'
   },
   mainPageCard: {
     flex: 1,
@@ -53,7 +52,12 @@ const styles = StyleSheet.create({
       color: '#fff',
       fontWeight: 'bold',
       textAlign: 'center'
-    }
+  },
+  mainImage: {
+    width: 400,
+    height: 300, 
+    bottom: 45
+  }
 });
 
 export default styles;

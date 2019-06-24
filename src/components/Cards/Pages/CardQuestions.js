@@ -9,7 +9,7 @@ const sealJudging = require('../../../images/sealJudging.gif')
 var buttonsChoices = {0:"", 1:"", 2:"", 3:"", 4:"", 5:"", 6:"", 7:"", 8:"", 9:"", 10:"", 11:""};
 
 var buttonsChoicesOne = {0:"10", 1:"5", 2:"2.5", 3:"0N, 20N e 5N", 4:"4.0625N, 0N e 20.9375N", 5:"20.9375N, 4.0625Nm e 0N", 6:"0.9375", 7:"0", 8:"2", 9:"O cortante deixaria de ser linear e seria uma cúbica e o momento seria uma parábola", 10:"O momento mudaria para uma cúbica e o cortante para uma parábola", 11:"Não haveriam mudanças nos gráficos"};
-var buttonsChoicesTwo = {0:"A", 1:"B", 2:"C", 3:"D", 4:"E", 5:"F", 6:"G", 7:"H", 8:"I", 9:"J", 10:"K", 11:"L"};
+var buttonsChoicesTwo = {0:"10N", 1:"20N", 2:"30N", 3:"20N", 4:"10N", 5:"5N", 6:"7", 7:"5", 8:"2", 9:"2", 10:"0", 11:"0.9375"};
 
 var questionOne = {0:"No diagrama de corpo livre, qual seria o módulo da força concentrada da carga distribuída?",
                    1:"Quais os valores das reações dos apoios A e B?",
@@ -18,8 +18,8 @@ var questionOne = {0:"No diagrama de corpo livre, qual seria o módulo da força
 
 var questionTwo = {0:"Qual será o resultado da componente vertical do primeiro apoio?",
                    1:"Qual será o resultado da componente vertical do segundo apoio?",
-                   2:"Como ficará o gráfico do esforço cortante?",
-                   3:"Como ficará o gráfico do momento fletor?"};
+                   2:"Qual o mínimo de seções necessárias em que a viga deverá ser dividida para encontrar os gráficos do esforço cortante e momento fletor?",
+                   3:"Qual o valor do esforço cortante para o trecho à direita do apoio B?"};
 
 var questionText = {0:"", 1:"", 2:"", 3:""};
 
@@ -41,7 +41,6 @@ export default class CardQuestions extends Component{
       correct: ""
     }
   }
-
   componentDidMount() {
     Animated.timing(
       this.state.fadeAnim,{
@@ -50,9 +49,8 @@ export default class CardQuestions extends Component{
       }
     ).start();
   };
-
   componentWillMount() {
-    if(this.props.counterBin === 0){
+    if(this.props.counterBin === 1){
       this.setState({
         questions:questionOne[0],
       })
@@ -76,7 +74,6 @@ export default class CardQuestions extends Component{
     }
     this.randomQuestion();
   };
-
   randomQuestion = () =>{
     let num = Math.random()*3;
     num = Math.floor(num);
@@ -108,7 +105,6 @@ export default class CardQuestions extends Component{
       };
       this.correctAnswer();
   }
-
   buttonNextPress = () => {
     this.setState({
       buttonNext: true,
@@ -118,7 +114,6 @@ export default class CardQuestions extends Component{
     });
     this.randomQuestion();
   };
-
   buttonConfirmPressed = () => {
     if(this.state.pressed[1] === false && this.state.pressed[2] === false && this.state.pressed[3] === false){
       null;
@@ -157,7 +152,6 @@ export default class CardQuestions extends Component{
       }
     }
   };
-
   buttonSelected = (selectedButton) => {
     this.correctAnswer();
     if(this.state.pressed[1] === false){
@@ -209,7 +203,6 @@ export default class CardQuestions extends Component{
       }
     }
   }
-
   correctAnswer = () =>{
     if (this.state.buttonAnswer[1] === true) {
       this.setState({
@@ -227,7 +220,6 @@ export default class CardQuestions extends Component{
       });
     }
   }
-
   render() {
     let { fadeAnim } = this.state;
 
@@ -241,7 +233,7 @@ export default class CardQuestions extends Component{
         {this.state.buttonConfirm === false ?
           <View style={styles.mainCard}>
             <ScrollView style={styles.contentCard} showsVerticalScrollIndicator={false}>
-            { (this.state.counter < 4) ?
+            { (this.state.counter < 0) ?
               <View>
                 <Text style = {styles.cardTitle}>Questão {this.state.counter+1}</Text>
                 <View style={{justifyContent:'space-between'}}>
@@ -269,10 +261,12 @@ export default class CardQuestions extends Component{
                 </View>
               </View>
             :
-              <View style={styles.score}>
-                {this.props.finished()}
-                <Text style={styles.cardTitle}>Pontuação Total</Text>
-                <Text style={styles.scoreText}>{this.state.score}/4</Text>
+            <View>
+              <Text style={styles.cardTitle}>Pontuação Total</Text>
+                <View style={styles.score}>
+                  {this.props.finished()}
+                  <Text style={styles.scoreText}>{this.state.score}/4</Text>
+                </View>
               </View>}
             </ScrollView>
             </View>
@@ -292,8 +286,8 @@ export default class CardQuestions extends Component{
                 <Text style={styles.cardTitle}>Você Errou</Text>
                 <Image source={sealJudging} style={styles.imageShape}/>
                 <View>
-                  <Text style={styles.cardTitle}>A resposta correta é:</Text>
-                  <Text style={styles.buttonText}>{this.state.correct}</Text>
+                  <Text style={styles.secondTitle}>A resposta correta é:</Text>
+                  <Text style={styles.thirdTitle}>{this.state.correct}</Text>
                 </View>
                 <TouchableOpacity style={styles.anyButton} onPress={this.buttonNextPress}>
                   <Text style={styles.buttonText}>Próximo</Text>
