@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
 
 import Header from './Header.js';
 import CardQuestions from '../Cards/Pages/CardQuestions';
 import CardHelp from '../Cards/Pages/CardHelp.js';
 import CardStand from '../Cards/Pages/CardStand.js';
-import CardDiagram from '../Cards/Pages/CardDiagram.js'
+import CardDiagram from '../Cards/Pages/CardDiagram.js';
+import Camera from '../Camera/Camera.js';
 
 import styles from './styles/styles.js';
 
@@ -27,7 +28,9 @@ export default class MainPage extends Component{
       showHelp: false,
       count: 0,
       pressSSol: false,
-      finished: false
+      finished: false,
+      showCamera: false,
+      photoAddress: ''
     };
     this.wasSSolpressed = this.wasSSolpressed.bind(this);
   }
@@ -62,11 +65,11 @@ export default class MainPage extends Component{
       , showHelp: !this.state.showHelp});
   };
   wasSSolpressed = () => {
-    fetch('http://calculusapi.herokuapp.com/generate_new');
     if(this.state.pressSSol === false){
       this.setState({
         count: (this.state.count+1)%2,
-        pressSSol: true
+        pressSSol: true,
+        showCamera: true
       })
     }
     else {
@@ -92,20 +95,22 @@ export default class MainPage extends Component{
   questionsFinished = () => {
     return this.state.finished = true;
   };
-
+  // Encontrar alguma solução para salvar os states quando entrar na camera URGENTEMENTE
   render() {
     return (
       <View style={styles.mainPage}>
         <Header SSolButton={this.wasSSolpressed}/>
           <View style = {styles.mainPageCard}>
-          {this.state.showStand? <CardStand/> :
+          {this.state.showCamera?<Camera photoAddress={this.props.photoAddress} showCamera={this.state.showCamera}/>:
+          (this.state.showStand?<CardStand/> :
           ((this.state.showDiagrams && this.state.finished === true) ? <CardDiagram urlImages={urlImages}/> :
           (this.state.showQuestions ? <CardQuestions counterBin = {this.state.count}
                                                      finished = {this.questionsFinished}
                                                      allDone={this.state.finished}/> :
-          (this.state.showHelp ? <CardHelp/> : <Image source={SSolImage} style={styles.mainImage}/>)))}
+          (this.state.showHelp ? <CardHelp/> : <Image source={SSolImage} style={styles.mainImage}/>))))}
           </View>
-          <View style = {styles.buttonPage}>
+          {this.state.showCamera?null:
+            <View style = {styles.buttonPage}>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator = {false} style={styles.buttonView}>
                 <TouchableOpacity style={styles.button} onPress={this.showStandCard}>
                   <Text style={styles.buttonText}>Bancadas</Text>
@@ -120,7 +125,7 @@ export default class MainPage extends Component{
                   <Text style={styles.buttonText}>Ajuda</Text>
                 </TouchableOpacity>
               </ScrollView>
-          </View>
+          </View>}
       </View>
     );
   }
