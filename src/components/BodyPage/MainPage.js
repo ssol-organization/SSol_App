@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView, Image, AsyncStorage, Button} from 'react-native';
+import { RNCamera } from 'react-native-camera';
 
 import Header from './Header.js';
 import CardQuestions from '../Cards/Pages/CardQuestions';
@@ -30,7 +31,8 @@ export default class MainPage extends Component{
       pressSSol: false,
       finished: false,
       showCamera: false,
-      photoAddress: ''
+      photoAddress: '',
+      back: false
     };
     this.wasSSolpressed = this.wasSSolpressed.bind(this);
   }
@@ -96,36 +98,38 @@ export default class MainPage extends Component{
     return this.state.finished = true;
   };
   // Encontrar alguma solução para salvar os states quando entrar na camera URGENTEMENTE
+
   render() {
     return (
       <View style={styles.mainPage}>
+        {this.state.showCamera?<Camera/>:
+        <View style={{flex:1}}>
         <Header SSolButton={this.wasSSolpressed}/>
           <View style = {styles.mainPageCard}>
-          {this.state.showCamera?<Camera photoAddress={this.props.photoAddress} showCamera={this.state.showCamera}/>:
-          (this.state.showStand?<CardStand/> :
+          {(this.state.showStand?<CardStand/> :
           ((this.state.showDiagrams && this.state.finished === true) ? <CardDiagram urlImages={urlImages}/> :
           (this.state.showQuestions ? <CardQuestions counterBin = {this.state.count}
-                                                     finished = {this.questionsFinished}
-                                                     allDone={this.state.finished}/> :
-          (this.state.showHelp ? <CardHelp/> : <Image source={SSolImage} style={styles.mainImage}/>))))}
-          </View>
-          {this.state.showCamera?null:
-            <View style = {styles.buttonPage}>
+            finished = {this.questionsFinished}
+            allDone={this.state.finished}/> :
+            (this.state.showHelp ? <CardHelp/> : <Image source={SSolImage} style={styles.mainImage}/>))))}
+            </View>
+              <View style = {styles.buttonPage}>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator = {false} style={styles.buttonView}>
-                <TouchableOpacity style={styles.button} onPress={this.showStandCard}>
-                  <Text style={styles.buttonText}>Bancadas</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={this.showQuestionsCard}>
-                  <Text style={styles.buttonText}>Questionário</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={this.showDiagramsCard}>
-                <Text style={styles.buttonText}>Diagramas</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={this.showHelpCard}>
-                  <Text style={styles.buttonText}>Ajuda</Text>
-                </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={this.showStandCard}>
+              <Text style={styles.buttonText}>Bancadas</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={this.showQuestionsCard}>
+              <Text style={styles.buttonText}>Questionário</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={this.showDiagramsCard}>
+              <Text style={styles.buttonText}>Diagramas</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={this.showHelpCard}>
+              <Text style={styles.buttonText}>Ajuda</Text>
+              </TouchableOpacity>
               </ScrollView>
-          </View>}
+            </View>
+        </View>}
       </View>
     );
   }

@@ -11,21 +11,18 @@ export default class Camera extends Component{
     super(props);
   }
   componentWillMount(){
-    this.setState({ back: true })
+    this.setState({ back: true, photoAddress: ''})
   }
   takePicture = async function() {
     if (this.camera) {
       var options = { base64: true };
       var data = await this.camera.takePictureAsync(options);
-      this.setState({back: false});
-      // this.props.photoAddress = this.props.photoAddress.replace(this.props.photoAddress, data.uri);
-      // return this.props.showCamera = false;
-
-      // console.log(this.props.photoAddress);
+      this.setState({back: false, photoAddress: data.uri});
+      console.log(this.state.photoAddress);
+      return data.uri;
       // console.log(this.props.showCamera);
     }
   }
-
   render() {
     return (
       this.state.back?<View style={styles.container}>
