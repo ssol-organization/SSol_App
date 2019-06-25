@@ -35,6 +35,8 @@ export default class MainPage extends Component{
       back: false
     };
     this.wasSSolpressed = this.wasSSolpressed.bind(this);
+    // this.saveValuesChild = this.saveValuesChild.bind(this);
+    this.getValue = this.getValue.bind(this);
   }
   showStandCard = () => {
     if(this.state.pressSSol === true){
@@ -98,11 +100,18 @@ export default class MainPage extends Component{
     return this.state.finished = true;
   };
   // Encontrar alguma solução para salvar os states quando entrar na camera URGENTEMENTE
-
+  // saveValuesChild = (address) => {
+  //   this._getNewDataAsync(address);
+  //   this.setState({photoAddress: address});
+  // }
+  getValue= (address) =>{
+    this.state.photoAddress = address;
+    console.log(this.state.photoAddress);
+  }
   render() {
     return (
       <View style={styles.mainPage}>
-        {this.state.showCamera?<Camera/>:
+        {this.state.showCamera?<Camera getValue={this.getValue}/>:
         <View style={{flex:1}}>
         <Header SSolButton={this.wasSSolpressed}/>
           <View style = {styles.mainPageCard}>

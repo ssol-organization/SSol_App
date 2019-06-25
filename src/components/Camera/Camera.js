@@ -18,9 +18,8 @@ export default class Camera extends Component{
       var options = { base64: true };
       var data = await this.camera.takePictureAsync(options);
       this.setState({back: false, photoAddress: data.uri});
-      console.log(this.state.photoAddress);
-      return data.uri;
-      // console.log(this.props.showCamera);
+      this.props.getValue(data.uri);
+      // console.log(this.state.photoAddress);
     }
   }
   render() {
