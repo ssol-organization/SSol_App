@@ -11,7 +11,7 @@ import Camera from '../Camera/Camera.js';
 
 import styles from './styles/styles.js';
 
-const SSolImage = require('../../images/SSolImage.png')
+const SSolImage = require('../../images/SSolImage.png');
 
 var urlImages  = {0: "https://calculusapi.herokuapp.com/get_diagram?tipo=0&p=",
                   1: "https://calculusapi.herokuapp.com/get_diagram?tipo=1&p=",

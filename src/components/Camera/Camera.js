@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, StatusBar } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, StatusBar, CameraRoll } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 import MainPage from '../BodyPage/MainPage.js';
 
 import styles from './styles/styles.js';
+
+const SSolImage = require('../../images/SSolImage.png');
 
 export default class Camera extends Component{
   constructor(props){
@@ -17,8 +19,38 @@ export default class Camera extends Component{
     if (this.camera) {
       var options = { base64: true };
       var data = await this.camera.takePictureAsync(options);
-      this.setState({back: false, photoAddress: data.uri});
+      CameraRoll.saveToCameraRoll(data.uri,"photo");
+
       this.props.getValue(data.uri);
+
+      const formData = {"foto": data.uri};
+      console.log(SSolImage);
+      console.log("FormData: " + JSON.stringify(formData));
+
+      var settings = {
+        "async": true,
+        "crossDomain": true,
+        "method": "POST",
+        "headers": {
+          "Accept": "application/json",
+          // "Cache-Control": "no-cache",
+          // "accept-encoding": "gzip, deflate",
+          // "content-length": "11668",
+          // "Connection": "keep-alive",
+          // "cache-control": "no-cache"
+        },
+        "processData": false,
+        "contentType": false,
+        "body": "multipart/form-data",
+        "data": formData
+      }
+
+    this.setState({back: false, photoAddress: data.uri});
+    const test = await fetch("http://ssolimprocessing.herokuapp.com/receive", settings)
+      // .then(response => response())
+      .then(response => console.log(response))
+      .catch(error => console.log(error));
+      // .then(formData => console.log(formData))
       // console.log(this.state.photoAddress);
     }
   }
