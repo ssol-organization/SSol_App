@@ -55,7 +55,7 @@ export default class MainPage extends Component{
     }
   };
   showQuestionsCard = () => {
-    if(this.state.pressSSol === true){
+    if(this.state.pressSSol === false){
       this.setState({ showStand: false
         , showDiagrams: false
         , showQuestions: !this.state.showQuestions

@@ -11,15 +11,15 @@ var buttonsChoices = {0:"", 1:"", 2:"", 3:"", 4:"", 5:"", 6:"", 7:"", 8:"", 9:""
 var buttonsChoicesOne = {0:"10", 1:"5", 2:"2.5", 3:"0N, 20N e 5N", 4:"4.0625N, 0N e 20.9375N", 5:"20.9375N, 4.0625Nm e 0N", 6:"0.9375", 7:"0", 8:"2", 9:"O cortante deixaria de ser linear e seria uma cúbica e o momento seria uma parábola", 10:"O momento mudaria para uma cúbica e o cortante para uma parábola", 11:"Não haveriam mudanças nos gráficos"};
 var buttonsChoicesTwo = {0:"10N", 1:"20N", 2:"30N", 3:"20N", 4:"10N", 5:"5N", 6:"7", 7:"5", 8:"2", 9:"2", 10:"0", 11:"0.9375"};
 
-var questionOne = {0:"No diagrama de corpo livre, qual seria o módulo da força concentrada da carga distribuída?",
-                   1:"Quais os valores das reações dos apoios A e B?",
-                   2:"Qual o valor do esforço cortante para o trecho à direita do apoio B?",
-                   3:"Caso a carga distribuída mudasse de retangular para uma triangular, como ficariam os diagramas para o trecho dessa nova carga?"};
+var questionOne = {0:"No diagrama de corpo livre, qual seria o módulo da força concentrada da carga distribuída? Força pontual em de 0.2m de 20N e uma pontual em 0.6m de 10N. Apoios em 0.1m e 0.8m",
+                   1:"Quais os valores das reações dos apoios A e B? Força pontual em de 0.2m de 20N e uma pontual em 0.6m de 10N. Apoios em 0.1m e 0.8m",
+                   2:"Qual o valor do esforço cortante para o trecho à direita do apoio B? Força pontual em de 0.2m de 20N e uma pontual em 0.6m de 10N. Apoios em 0.1m e 0.8m",
+                   3:"Caso a carga distribuída mudasse de retangular para uma triangular, como ficariam os diagramas para o trecho dessa nova carga? Força pontual em de 0.2m de 20N e uma pontual em 0.6m de 10N. Apoios em 0.1m e 0.8m"};
 
-var questionTwo = {0:"Qual será o resultado da componente vertical do primeiro apoio?",
-                   1:"Qual será o resultado da componente vertical do segundo apoio?",
-                   2:"Qual o mínimo de seções necessárias em que a viga deverá ser dividida para encontrar os gráficos do esforço cortante e momento fletor?",
-                   3:"Qual o valor do esforço cortante para o trecho à direita do apoio B?"};
+var questionTwo = {0:"Qual será o resultado da componente vertical do primeiro apoio? Força distribuida em 0m até 0.4m de 10N e uma pontual de 20N em 0.9m. Apoios em 0.1m e 0.9m",
+                   1:"Qual será o resultado da componente vertical do segundo apoio? Força distribuida em 0m até 0.4m de 10N e uma pontual de 20N em 0.9m. Apoios em 0.1m e 0.9m",
+                   2:"Qual o mínimo de seções necessárias em que a viga deverá ser dividida para encontrar os gráficos do esforço cortante e momento fletor? Força distribuida em de 0m até 0.4m de 10N e uma pontual de 20N em 0.9m. Apoios em 0.1m e 0.9m",
+                   3:"Qual o valor do esforço cortante para o trecho à direita do apoio B? Força distribuida em de 0m até 0.4m de 10N e uma pontual de 20N em 0.9m. Apoios em 0.1m e 0.9m"};
 
 var questionText = {0:"", 1:"", 2:"", 3:""};
 
@@ -233,7 +233,7 @@ export default class CardQuestions extends Component{
         {this.state.buttonConfirm === false ?
           <View style={styles.mainCard}>
             <ScrollView style={styles.contentCard} showsVerticalScrollIndicator={false}>
-            { (this.state.counter < 0) ?
+            { (this.state.counter < 4) ?
               <View>
                 <Text style = {styles.cardTitle}>Questão {this.state.counter+1}</Text>
                 <View style={{justifyContent:'space-between'}}>
