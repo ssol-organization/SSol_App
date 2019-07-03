@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View, StatusBar, CameraRoll, Dimensions } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import RNFetchBlob from 'rn-fetch-blob'
 
 export default class Camera extends Component{
   constructor(props){
@@ -10,6 +11,7 @@ export default class Camera extends Component{
   componentWillMount(){
     this.setState({ path: null,back: true, photoAddress: ''})
   }
+
   takePicture = async function() {
     if (this.camera) {
       var options = { base64: true, quality: 0.5};
@@ -24,22 +26,34 @@ export default class Camera extends Component{
     // this.setState({path: null});
   }
   callFetch = () => {
+    RNFetchBlob.fetch('POST', 'http://ssolimprocessing.herokuapp.com/receive', {
+        Authorization : "Bearer access-token",
+        otherHeader : "foo",
+        'Content-Type' : 'multipart/form-data',
+    }, [
+      // element with property `filename` will be transformed into `file` in form data
+      { name : "foto", filename : "foto.jpg", type:"image/jpg", data: this.state.path},
+    ]).then((resp) => {
+      console.log(resp.data)
+    }).catch((err) => {
+      console.log(err);
+    })
     // const form = new FormData();
     // form.append("foto", {uri: this.state.path});
-    const form = JSON.stringify({"foto": this.state.path});
-    console.log(form);
-    const url = "http://ssolimprocessing.herokuapp.com/receive";
-    var settings = {
-      "method": "POST",
-      "headers": {
-        "Content-Type": "multipart/form-data"
-      },
-      body: form
-    }
-    const response = fetch(url, settings)
-      .then(response => response.json())
-      .then(json => console.log(json))
-      .catch(error => console.log(error));
+    // const form = JSON.stringify({"foto": this.state.path});
+    // console.log(form);
+    // const url = "http://ssolimprocessing.herokuapp.com/receive";
+    // var settings = {
+    //   "method": "POST",
+    //   "headers": {
+    //     "Content-Type": "multipart/form-data"
+    //   },
+    //   body: form
+    // }
+    // const response = fetch(url, settings)
+    //   .then(response => response.json())
+    //   .then(json => console.log(json))
+    //   .catch(error => console.log(error));
   }
 
   renderCamera() {
