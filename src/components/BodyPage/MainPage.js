@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, ScrollView, Image, AsyncStorage, Button} from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import RNFetchBlob from 'rn-fetch-blob';
 
 import Header from './Header.js';
 import CardQuestions from '../Cards/Pages/CardQuestions';
@@ -32,11 +33,10 @@ export default class MainPage extends Component{
       finished: false,
       showCamera: false,
       photoAddress: '',
-      back: false
     };
     this.wasSSolpressed = this.wasSSolpressed.bind(this);
-    // this.saveValuesChild = this.saveValuesChild.bind(this);
-    this.getValue = this.getValue.bind(this);
+  }
+  componentWillMount(){
   }
   showStandCard = () => {
     if(this.state.pressSSol === true){
@@ -55,7 +55,8 @@ export default class MainPage extends Component{
     }
   };
   showQuestionsCard = () => {
-    if(this.state.pressSSol === false){
+    this.getValue();
+    if(this.state.pressSSol === true){
       this.setState({ showStand: false
         , showDiagrams: false
         , showQuestions: !this.state.showQuestions
@@ -99,15 +100,24 @@ export default class MainPage extends Component{
   questionsFinished = () => {
     return this.state.finished = true;
   };
-  // Encontrar alguma solução para salvar os states quando entrar na camera URGENTEMENTE
-  // saveValuesChild = (address) => {
-  //   this._getNewDataAsync(address);
-  //   this.setState({photoAddress: address});
-  // }
-  getValue= (address) =>{
-    this.state.photoAddress = address;
-    console.log(this.state.photoAddress);
+
+  getValue = () =>{
+      RNFetchBlob.fetch('GET', 'http://ssolimprocessing.herokuapp.com/current_image', {
+      Authorization : 'Bearer access-token...',
+    }).then((response) => {
+        let status = response.info().status;
+        if(status == 200) {
+          console.log('Foi');
+          this.setState({pressSSol: true});
+        }
+        else {
+          console.log(response);
+        }
+    }).catch((errorMessage, statusCode) => {
+      console.log(errorMessage);
+    })
   }
+
   render() {
     return (
       <View style={styles.mainPage}>

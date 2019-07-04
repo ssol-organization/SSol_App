@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, StatusBar, CameraRoll, Image } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import RNFetchBlob from 'rn-fetch-blob';
 
 import MainPage from '../BodyPage/MainPage.js';
 
@@ -13,7 +14,7 @@ export default class Camera extends Component{
     super(props);
   }
   componentWillMount(){
-    this.setState({ path: null });
+    this.setState({ path: null, back: false });
   }
   takePicture = async function() {
     if (this.camera) {
@@ -23,13 +24,24 @@ export default class Camera extends Component{
     }
   }
   acceptPhoto = () => {
-    console.log("Foto: " + this.state.path);
     CameraRoll.saveToCameraRoll(this.state.path,"photo");
+
     this.callFetch();
-    this.setState({path: null});
+
+    this.setState({back: true});
   }
   callFetch(){
-
+    RNFetchBlob.fetch('POST', 'http://ssolimprocessing.herokuapp.com/receive', {
+      Authorization : "Bearer access-token",
+      otherHeader : "foo",
+      'Content-Type' : 'multipart/form-data',
+    },[
+      { name : 'foto', filename : 'foto.png', type:'image/png', data: this.state.path},
+    ]).then((response) => {
+      console.log(response.data);
+    }).catch((error) => {
+      console.log(error);
+    })
   }
   renderCamera(){
     return(
@@ -65,6 +77,9 @@ export default class Camera extends Component{
   renderImage(){
     return(
       <View style={{flex: 1}}>
+        <StatusBar
+          hidden
+        />
         <Image
           source={{ uri: this.state.path }}
           style={styles.preview}
@@ -84,6 +99,7 @@ export default class Camera extends Component{
   }
   render() {
     return (
+      this.state.back?<MainPage/>:
       <View style={styles.container}>
         {this.state.path != null? this.renderImage() : this.renderCamera()}
       </View>
