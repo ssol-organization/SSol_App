@@ -121,7 +121,7 @@ export default class MainPage extends Component{
   render() {
     return (
       <View style={styles.mainPage}>
-        {this.state.showCamera?<Camera getValue={this.getValue}/>:
+        {this.state.showCamera?<Camera/>:
         <View style={{flex:1}}>
         <Header SSolButton={this.wasSSolpressed}/>
           <View style = {styles.mainPageCard}>

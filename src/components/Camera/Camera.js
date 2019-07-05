@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, StatusBar, CameraRoll, Image } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, StatusBar, CameraRoll, Image, Dimensions } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import RNFetchBlob from 'rn-fetch-blob';
+import ImageResizer from 'react-native-image-resizer';
 
 import MainPage from '../BodyPage/MainPage.js';
 
 import styles from './styles/styles.js';
 
-const SSolImage = require('../../images/SSolImage.png');
+const width = Dimensions.get('screen').width;
+const height = Dimensions.get('screen').height;
 
 export default class Camera extends Component{
   constructor(props){
@@ -18,7 +20,7 @@ export default class Camera extends Component{
   }
   takePicture = async function() {
     if (this.camera) {
-      var options = { base64: true, quality: 0.5, fixOrientation: true};
+      var options = { quality: 0.5, base64: true, orientation: "portrait", fixOrientation: true};
       const data = await this.camera.takePictureAsync(options);
       this.setState({ path: data.uri});
     }
@@ -26,9 +28,8 @@ export default class Camera extends Component{
   acceptPhoto = () => {
     CameraRoll.saveToCameraRoll(this.state.path,"photo");
 
-    this.callFetch();
+    this.resizer();
 
-    this.setState({back: true});
   }
   callFetch(){
     RNFetchBlob.fetch('POST', 'http://ssolimprocessing.herokuapp.com/receive', {
@@ -42,6 +43,17 @@ export default class Camera extends Component{
     }).catch((error) => {
       console.log(error);
     })
+    this.setState({back: true});
+  }
+  resizer(){
+    ImageResizer.createResizedImage(this.state.path, width, height, 'PNG', 90)
+      .then((response) => {
+        this.setState({path: response.uri});
+        console.log('Response:', this.state.path);
+      }).catch((err) => {
+        console.log('err===>', err, '---err');
+      });
+    this.callFetch();
   }
   renderCamera(){
     return(
@@ -54,6 +66,7 @@ export default class Camera extends Component{
             this.camera = cam;
           }}
           style={styles.preview}
+          barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
           flashMode={RNCamera.Constants.FlashMode.off}
           autoFocus={RNCamera.Constants.AutoFocus.on}
           androidCameraPermissionOptions={{
