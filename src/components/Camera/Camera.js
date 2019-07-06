@@ -20,7 +20,7 @@ export default class Camera extends Component{
   }
   takePicture = async function() {
     if (this.camera) {
-      var options = { quality: 0.5, base64: true, orientation: "portrait", fixOrientation: true};
+      var options = { quality: 1, base64: true, orientation: "portrait", fixOrientation: true};
       const data = await this.camera.takePictureAsync(options);
       this.setState({ path: data.uri});
     }
@@ -31,22 +31,23 @@ export default class Camera extends Component{
     this.resizer(this.state.path);
 
     // Pegando img da galeria
-    CameraRoll.getPhotos({
-         first: 1,
-         assetType: 'Photos',
-       })
-       .then(r => {
-         this.setState({aux: r.edges})
-         //Pegando URI da imagem da galeria
-         this.state.aux.map((p,i) => {
-           this.setState({path: p.node.image.uri});
-           console.log("Na Galeria =========> " + this.state.path);
-           this.callFetch(this.state.path);
-         })
-       })
-       .catch((err) => {
-         console.log(err);
-       });
+    // CameraRoll.getPhotos({
+    //      first: 1,
+    //      assetType: 'Photos',
+    //    })
+    //    .then(r => {
+    //      this.setState({aux: r.edges})
+    //      //Pegando URI da imagem da galeria
+    //      this.state.aux.map((p,i) => {
+    //        this.setState({path: p.node.image.uri});
+    //        console.log("Na Galeria =========> " + this.state.path);
+    //        this.callFetch(this.state.path);
+    //      })
+    //    })
+    //    .catch((err) => {
+    //      console.log(err);
+    //    });
+       this.callFetch(this.state.path);
 
   }
   callFetch(path){
