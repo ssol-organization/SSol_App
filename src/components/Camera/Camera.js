@@ -16,7 +16,7 @@ export default class Camera extends Component{
     super(props);
   }
   componentWillMount(){
-    this.setState({ path: null, back: false });
+    this.setState({ path: null, back: false, data: null, aux: null});
   }
   takePicture = async function() {
     if (this.camera) {
@@ -26,34 +26,57 @@ export default class Camera extends Component{
     }
   }
   acceptPhoto = () => {
-    CameraRoll.saveToCameraRoll(this.state.path,"photo");
 
-    this.resizer();
+    // Salvando img na galeria como png
+    this.resizer(this.state.path);
+
+    // Pegando img da galeria
+    CameraRoll.getPhotos({
+         first: 1,
+         assetType: 'Photos',
+       })
+       .then(r => {
+         this.setState({aux: r.edges})
+         //Pegando URI da imagem da galeria
+         this.state.aux.map((p,i) => {
+           this.setState({path: p.node.image.uri});
+           console.log("Na Galeria =========> " + this.state.path);
+           this.callFetch(this.state.path);
+         })
+       })
+       .catch((err) => {
+         console.log(err);
+       });
 
   }
-  callFetch(){
+  callFetch(path){
     RNFetchBlob.fetch('POST', 'http://ssolimprocessing.herokuapp.com/receive', {
       Authorization : "Bearer access-token",
       otherHeader : "foo",
       'Content-Type' : 'multipart/form-data',
     },[
-      { name : 'foto', filename : 'foto.png', type:'image/png', data: this.state.path},
+      { name : 'foto', filename: 'foto.png', type:'image/foo', data: RNFetchBlob.wrap(path)},
     ]).then((response) => {
-      console.log(response.data);
+      console.log("Servidor ==========> " +  path);
+      console.log("Resultado =========> " + response.data);
+      console.log("Response =========> " + JSON.stringify(response));
     }).catch((error) => {
       console.log(error);
     })
     this.setState({back: true});
   }
-  resizer(){
-    ImageResizer.createResizedImage(this.state.path, width, height, 'PNG', 90)
+
+  resizer(path){
+    console.log("Resizer Fora =======> " + path);
+    // Convertendo a img
+    ImageResizer.createResizedImage(path, width, height, 'PNG', 100)
       .then((response) => {
-        this.setState({path: response.uri});
-        console.log('Response:', this.state.path);
+        console.log("Resizer Dentro =========> " + JSON.stringify(response.uri));
+        CameraRoll.saveToCameraRoll(response.uri, "photo");
       }).catch((err) => {
         console.log('err===>', err, '---err');
       });
-    this.callFetch();
+
   }
   renderCamera(){
     return(
@@ -119,3 +142,4 @@ export default class Camera extends Component{
     );
   }
 }
+//

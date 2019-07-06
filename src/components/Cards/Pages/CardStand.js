@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Text, View, Animated, ScrollView, Image} from 'react-native';
 
+
 import styles from '../styles/styles.js';
 
 export default class CardStand extends Component{
@@ -29,8 +30,7 @@ export default class CardStand extends Component{
         <Text style = {styles.cardTitle}>Bancadas</Text>
         <ScrollView style={styles.contentCard}>
           <Text style={{fontSize:96}}>Scroll me plz</Text>
-          <Image source={{uri: "https://image.flaticon.com/teams/slug/google.jpg", width: 64, height: 64}} />
-          <Image source={{uri: "https://calculusapi.herokuapp.com/get_diagram?tipo=4"}} style={styles.graphShape}/>
+
         </ScrollView>
       </View>
       </Animated.View>
