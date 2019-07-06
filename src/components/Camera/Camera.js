@@ -20,7 +20,7 @@ export default class Camera extends Component{
   }
   takePicture = async function() {
     if (this.camera) {
-      var options = { quality: 1, base64: true, orientation: "portrait", fixOrientation: true};
+      var options = { base64: true, orientation: "landscapeLeft", fixOrientation: true , skipProcessing: true, width: width, height: height};
       const data = await this.camera.takePictureAsync(options);
       this.setState({ path: data.uri});
     }
