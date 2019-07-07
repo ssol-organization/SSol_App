@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   secondTitle: {
+    top: 10,
     fontSize: 25,
     fontWeight: 'bold',
     color: '#fff',
@@ -79,6 +80,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     margin: 10
+  },
+  options:{
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    alignItems: "center",
+    borderRadius: 10,
+    padding: 10,
+    margin: 10,
+    width: 150,
+    height: 150,
   },
   score:{
     flexDirection: 'column',

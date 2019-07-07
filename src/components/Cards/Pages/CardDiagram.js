@@ -17,7 +17,7 @@ export default class CardGraph extends Component{
     ).start();
   }
   componentWillMount() {
-    fetch('http://calculusapi.herokuapp.com/generate_new');
+    
   }
   render() {
     let { fadeAnim } = this.state;

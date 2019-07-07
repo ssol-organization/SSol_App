@@ -10,12 +10,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#000',
   },
-  preview: {
+  previewCamera: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
     height: Dimensions.get('window').height,
     width: Dimensions.get('window').width
+  },
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').height,
+    transform: [{ rotate: '90deg' }]
   },
   capture: {
     width: 70,

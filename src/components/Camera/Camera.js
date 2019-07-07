@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, StatusBar, CameraRoll, Image, Dimensions } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import RNFetchBlob from 'rn-fetch-blob';
-import ImageResizer from 'react-native-image-resizer';
 
 import MainPage from '../BodyPage/MainPage.js';
 
@@ -20,15 +19,16 @@ export default class Camera extends Component{
   }
   takePicture = async function() {
     if (this.camera) {
-      var options = { base64: true, orientation: "landscapeLeft", fixOrientation: true , skipProcessing: true, width: width, height: height};
+      var options = { base64: true, fixOrientation: true , skipProcessing: true, width: width, height: height};
       const data = await this.camera.takePictureAsync(options);
       this.setState({ path: data.uri});
     }
   }
   acceptPhoto = () => {
+    this.callFetch(this.state.path);
 
-    // Salvando img na galeria como png
-    this.resizer(this.state.path);
+    // Salvando img na galeria
+    // CameraRoll.saveToCameraRoll(response.uri, "photo");
 
     // Pegando img da galeria
     // CameraRoll.getPhotos({
@@ -47,7 +47,6 @@ export default class Camera extends Component{
     //    .catch((err) => {
     //      console.log(err);
     //    });
-       this.callFetch(this.state.path);
 
   }
   callFetch(path){
@@ -56,7 +55,7 @@ export default class Camera extends Component{
       otherHeader : "foo",
       'Content-Type' : 'multipart/form-data',
     },[
-      { name : 'foto', filename: 'foto.png', type:'image/foo', data: RNFetchBlob.wrap(path)},
+      { name : 'foto', filename: 'foto.jpg', type:'image/foo', data: RNFetchBlob.wrap(path)},
     ]).then((response) => {
       console.log("Servidor ==========> " +  path);
       console.log("Resultado =========> " + response.data);
@@ -67,18 +66,6 @@ export default class Camera extends Component{
     this.setState({back: true});
   }
 
-  resizer(path){
-    console.log("Resizer Fora =======> " + path);
-    // Convertendo a img
-    ImageResizer.createResizedImage(path, width, height, 'PNG', 100)
-      .then((response) => {
-        console.log("Resizer Dentro =========> " + JSON.stringify(response.uri));
-        CameraRoll.saveToCameraRoll(response.uri, "photo");
-      }).catch((err) => {
-        console.log('err===>', err, '---err');
-      });
-
-  }
   renderCamera(){
     return(
       <View style={styles.container}>
@@ -89,7 +76,7 @@ export default class Camera extends Component{
           ref={(cam) => {
             this.camera = cam;
           }}
-          style={styles.preview}
+          style={styles.previewCamera}
           barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
           flashMode={RNCamera.Constants.FlashMode.off}
           autoFocus={RNCamera.Constants.AutoFocus.on}
@@ -113,7 +100,7 @@ export default class Camera extends Component{
   }
   renderImage(){
     return(
-      <View style={{flex: 1}}>
+      <View style={styles.container}>
         <StatusBar
           hidden
         />
@@ -121,16 +108,18 @@ export default class Camera extends Component{
           source={{ uri: this.state.path }}
           style={styles.preview}
         />
-        <Text
-          style={styles.cancel}
-          onPress={() => this.setState({ path: null })}
-        >Cancelar
-        </Text>
-        <Text
-          style={styles.accept}
-          onPress={this.acceptPhoto}
-        > Aceitar
-        </Text>
+          <View >
+            <Text
+              style={styles.cancel}
+              onPress={() => this.setState({ path: null })}
+            >Cancelar
+            </Text>
+            <Text
+              style={styles.accept}
+              onPress={this.acceptPhoto}
+            > Aceitar
+            </Text>
+          </View>
       </View>
     );
   }

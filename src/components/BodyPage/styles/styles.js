@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
   buttonView: {
     position: 'absolute',
     flexDirection: 'row',
+    top: -75,
     left: 5,
     right: 5,
     flex: 1
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
   },
   mainImage: {
     width: 400,
-    height: 300, 
+    height: 300,
     bottom: 45
   }
 });
