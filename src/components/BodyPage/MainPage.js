@@ -36,10 +36,8 @@ export default class MainPage extends Component{
       photoAddress: '',
     };
     this.wasSSolpressed = this.wasSSolpressed.bind(this);
-    this.getValue = this.getValue.bind(this);
   }
   componentWillMount(){
-    this.getValue();
   }
   showStandCard = () => {
     if(this.state.pressSSol === false){
@@ -79,6 +77,7 @@ export default class MainPage extends Component{
     this.setState({
       count: (this.state.count+1)%2
     });
+    console.log("Counter: "+this.state.count);
     Alert.alert(
         'Como você quer tirar sua foto?',
         ' ',
@@ -99,28 +98,17 @@ export default class MainPage extends Component{
     fetch("https://calculusapi.herokuapp.com/generate_new")
       .then((response) => {
             console.log("Generate_New fetch ====> "+ JSON.stringify(response));
+            Alert.alert(
+                'Os diagramas foram carregados',
+                ' ',
+                [
+                  {text: 'OK', onPress: () => console.log("Terminou")}
+                ],
+            );
             return this.state.finished = true;
       }).catch((error) => {
         console.log("Generate_New error ====> "+error);
       });
-  }
-  getValue = () =>{
-      RNFetchBlob.fetch('GET', 'http://ssolimprocessing.herokuapp.com/current_image', {
-      Authorization : 'Bearer access-token...',
-    }).then((response) => {
-        let status = response.info().status;
-        if(status == 200) {
-          // this.setState({pressSSol: true});
-        }
-        else {
-          console.log(response);
-        }
-    }).catch((errorMessage, statusCode) => {
-      console.log(errorMessage);
-    })
-  }
-  refreshDiagrams = () =>{
-
   }
   render() {
     return (

@@ -28,8 +28,8 @@ export default class CardSettings extends Component{
       <View style={styles.mainCard}>
         <Text style = {styles.cardTitle}>Ajuda</Text>
         <View style={styles.contentHelpCard}>
-          <Text style={styles.secondTitle}>Bem vindo ao aplicativo do projeto SSOL</Text>
-          <Text style={styles.secondTitle}>As instruções básicas são:</Text>
+          <Text style={styles.thirdTitle}>Bem vindo ao aplicativo do projeto SSOL</Text>
+          <Text style={styles.thirdTitle}>As instruções básicas são:</Text>
           <Text style={styles.plainText}>1 - Ajuste os pesos na bancada</Text>
           <Text style={styles.plainText}>2 - Aperte no botão SSOL, na parte superior da tela, para carregar uma nova imagem da sua bancada</Text>
           <Text style={styles.plainText}>3 - As funções Bancada e Questionario só estarão disponíveis após o botão SSOL ser pressionado</Text>

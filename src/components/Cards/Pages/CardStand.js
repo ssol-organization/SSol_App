@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, Animated, Image} from 'react-native';
+import { Text, View, Animated, Image, TouchableOpacity, Linking} from 'react-native';
 
 import styles from '../styles/styles.js';
 
@@ -29,8 +29,9 @@ export default class CardStand extends Component{
       <View style={styles.mainCard}>
         <Text style = {styles.cardTitle}>Bancadas</Text>
         <View style={styles.contentCard}>
-          <Text style={styles.secondTitle}>Foto da bancada</Text>
-          <Image source={{uri: this.props.urlImages[5]}} style={styles.graphShape}/>
+          <TouchableOpacity onPress={() => Linking.openURL(this.props.urlImages[5])} style={styles.anyButton}>
+            <Text style={styles.buttonText}>Foto da bancada</Text>
+          </TouchableOpacity>
         </View>
       </View>
       </Animated.View>
