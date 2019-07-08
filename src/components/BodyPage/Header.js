@@ -4,17 +4,18 @@ import { StatusBar, View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles/styles.js';
 
 export default class Header extends Component{
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <View>
         <StatusBar
-        backgroundColor = '#5DADE2'
+          backgroundColor = '#00A9EE'
         />
-      <TouchableOpacity>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>SSol</Text>
-        </View>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.header} onPress={this.props.SSolButton}>
+            <Text style={styles.headerText}>SSol</Text>
+        </TouchableOpacity>
       </View>
     );
   }

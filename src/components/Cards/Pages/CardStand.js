@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import { Text, View, Animated, ScrollView, Image} from 'react-native';
+import { Text, View, Animated, Image} from 'react-native';
 
 import styles from '../styles/styles.js';
 
 export default class CardStand extends Component{
   state = {
     fadeAnim: new Animated.Value(0),
+    url: null
   }
   componentDidMount() {
     Animated.timing(
@@ -27,11 +28,10 @@ export default class CardStand extends Component{
       >
       <View style={styles.mainCard}>
         <Text style = {styles.cardTitle}>Bancadas</Text>
-        <ScrollView style={styles.contentCard}>
-          <Text style={{fontSize:96}}>Scroll me plz</Text>
-          <Image source={{uri: "https://image.flaticon.com/teams/slug/google.jpg", width: 64, height: 64}} />
-          <Image source={{uri: "https://calculusapi.herokuapp.com/get_diagram?tipo=4", width: 500, height: 200}} />
-        </ScrollView>
+        <View style={styles.contentCard}>
+          <Text style={styles.secondTitle}>Foto da bancada</Text>
+          <Image source={{uri: this.props.urlImages[5]}} style={styles.graphShape}/>
+        </View>
       </View>
       </Animated.View>
     );
