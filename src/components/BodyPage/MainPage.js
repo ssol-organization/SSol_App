@@ -19,7 +19,7 @@ var urlImages  = {0: "https://calculusapi.herokuapp.com/get_diagram?tipo=0&p=",
                   2: "https://calculusapi.herokuapp.com/get_diagram?tipo=3&p=",
                   3: "https://calculusapi.herokuapp.com/get_diagram?tipo=4&p=",
                   4: "https://calculusapi.herokuapp.com/get_diagram?tipo=5&p=",
-                  5: "http://ssolimprocessing.herokuapp.com/current_image&p="};// <===== Bancada
+                  5: "http://ssolimprocessing.herokuapp.com/current_image"};// <===== Bancada
 // A imagem da bancada não esta sendo atualizada
 export default class MainPage extends Component{
   constructor(props) {
@@ -36,6 +36,7 @@ export default class MainPage extends Component{
       photoAddress: '',
     };
     this.wasSSolpressed = this.wasSSolpressed.bind(this);
+    this.getValue = this.getValue.bind(this);
   }
   componentWillMount(){
     this.getValue();
@@ -75,7 +76,7 @@ export default class MainPage extends Component{
         'Como você quer tirar sua foto?',
         ' ',
         [
-          {text: 'Usar a ESP', onPress: () => fetch("https://calculusapi.herokuapp.com/get_diagram?tipo=0&p=")},
+          {text: 'Usar a ESP', onPress: () => (this.setState({pressSSol: true}) && fetch("https://calculusapi.herokuapp.com/get_diagram?tipo=0&p="))},
           {text: 'Usar a Câmera', onPress: () => this.setState({showCamera: true})},
         ],
         {cancelable: true},
@@ -88,9 +89,10 @@ export default class MainPage extends Component{
     return this.state.finished = true;
   };
   refresh = () =>{
-    let num = Math.random()*4;
+    RNFetchBlob.fetch("GET", "https://calculusapi.herokuapp.com/generate_new");
+    let num = (Math.random()+1)*4;
     num = Math.floor(num);
-    for (var i = 0; i < 6 ; i++) {
+    for (var i = 0; i < 5 ; i++) {
       urlImages[i] = urlImages[i].concat(String(num));
     }
   }
@@ -119,7 +121,7 @@ export default class MainPage extends Component{
         <Header SSolButton={this.wasSSolpressed}/>
           <View style = {styles.mainPageCard}>
           {(this.state.showStand?<CardStand urlImages = {urlImages}/> :
-          ((this.state.showDiagrams && this.state.finished === true) ? <CardDiagram urlImages={urlImages}/> :
+          ((this.state.showDiagrams && this.state.finished === true) ? <CardDiagram urlImages={urlImages} refresh={this.refresh}/> :
           (this.state.showQuestions ? <CardQuestions counterBin = {this.state.count}
             finished = {this.questionsFinished}
             allDone={this.state.finished}/> :

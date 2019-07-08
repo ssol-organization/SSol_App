@@ -6,6 +6,7 @@ import styles from '../styles/styles.js';
 export default class CardStand extends Component{
   state = {
     fadeAnim: new Animated.Value(0),
+    url: null
   }
   componentDidMount() {
     Animated.timing(
