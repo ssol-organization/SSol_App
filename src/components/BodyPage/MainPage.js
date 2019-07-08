@@ -94,16 +94,6 @@ export default class MainPage extends Component{
     console.log("Entrou");
     fetch("https://calculusapi.herokuapp.com/generate_new")
       .then((response) => {
-            urlImages[0] = urlImages[0].concat("&"+Math.random());
-            urlImages[1] = urlImages[1].concat("&"+Math.random());
-            urlImages[2] = urlImages[2].concat("&"+Math.random());
-            urlImages[3] = urlImages[3].concat("&"+Math.random());
-            urlImages[4] = urlImages[4].concat("&"+Math.random());
-            console.log(urlImages[0]);
-            console.log(urlImages[1]);
-            console.log(urlImages[2]);
-            console.log(urlImages[3]);
-            console.log(urlImages[4]);  
             console.log("Generate_New fetch ====> "+ JSON.stringify(response));
             return this.state.finished = true;
       }).catch((error) => {

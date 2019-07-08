@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, Animated, Image, ScrollView, Button, TouchableOpacity } from 'react-native';
+import { Text, View, Animated, Image, ScrollView, Button, TouchableOpacity, Linking } from 'react-native';
 import {CachedImage, ImageCacheProvider} from 'react-native-cached-image';
 
 import styles from '../styles/styles.js';
@@ -32,27 +32,21 @@ export default class CardGraph extends Component{
         <View style={styles.mainCard}>
           <Text style = {styles.cardTitle}>Diagramas</Text>
           <ScrollView style={styles.contentCard} showsVerticalScrollIndicator={false}>
-            <Text style={styles.secondTitle}>Diagrama Estrutural</Text>
-            <Image source={{ uri: "https://calculusapi.herokuapp.com/get_diagram?tipo=0&0.976800591829772",
-                 method: 'GET',
-                 headers: { Pragma: 'no-cache'},}}
-                 style={{width: 400, height: 400}} />
-            <Text style={styles.secondTitle}>Forças de reação</Text>
-            <Image source={{uri: this.props.urlImages[1]}}
-              style={styles.graphShape}
-            />
-            <Text style={styles.secondTitle}>Esforço Cortante</Text>
-            <Image source={{uri: this.props.urlImages[2]}}
-              style={styles.graphShape}
-            />
-            <Text style={styles.secondTitle}>Momento Fletor</Text>
-            <Image source={{uri: this.props.urlImages[3]}}
-              style={styles.graphShape}
-            />
-            <Text style={styles.secondTitle}>Deflexão</Text>
-            <Image source={{uri: this.props.urlImages[4]}}
-              style={styles.graphShape}
-            />
+            <TouchableOpacity onPress={() => Linking.openURL( this.props.urlImages[0])} style={styles.anyButton}>
+              <Text style={styles.buttonText}>Estrutural</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL( this.props.urlImages[1])} style={styles.anyButton}>
+              <Text style={styles.buttonText}>Forças de reação</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL( this.props.urlImages[2])} style={styles.anyButton}>
+              <Text style={styles.buttonText}>Esforço Cortante</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL( this.props.urlImages[3])} style={styles.anyButton}>
+              <Text style={styles.buttonText}>Momento Fletor</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL( this.props.urlImages[4])} style={styles.anyButton}>
+              <Text style={styles.buttonText}>Deformação</Text>
+            </TouchableOpacity>
           </ScrollView>
         </View>
         </Animated.View>
