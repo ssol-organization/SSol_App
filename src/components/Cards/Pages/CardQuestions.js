@@ -233,7 +233,7 @@ export default class CardQuestions extends Component{
         {this.state.buttonConfirm === false ?
           <View style={styles.mainCard}>
             <ScrollView style={styles.contentCard} showsVerticalScrollIndicator={false}>
-            { (this.state.counter < 0) ?
+            { (this.state.counter < 4) ?
               <View>
                 <Text style = {styles.cardTitle}>Questão {this.state.counter+1}</Text>
                 <View style={{justifyContent:'space-between'}}>

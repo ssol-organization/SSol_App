@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import { Text, View, Animated, Image, ScrollView, Button, TouchableOpacity, Linking } from 'react-native';
-import {CachedImage, ImageCacheProvider} from 'react-native-cached-image';
-
 import styles from '../styles/styles.js';
 
 export default class CardGraph extends Component{

@@ -71,6 +71,10 @@ export default class MainPage extends Component{
       , showQuestions: false
       , showHelp: !this.state.showHelp});
   };
+  ESP = () =>{
+    this.setState({pressSSol: false});
+    RNFetchBlob.fetch('GET', 'http://ssolimprocessing.herokuapp.com/espreceive',);
+  }
   wasSSolpressed = () => {
     this.setState({
       count: (this.state.count+1)%2
@@ -79,7 +83,7 @@ export default class MainPage extends Component{
         'Como você quer tirar sua foto?',
         ' ',
         [
-          {text: 'Usar a ESP', onPress: () => (this.setState({pressSSol: false}) && fetch("https://calculusapi.herokuapp.com/get_diagram?tipo=0&p="))},
+          {text: 'Usar a ESP', onPress: () => this.ESP()},
           {text: 'Usar a Câmera', onPress: () => this.setState({showCamera: true})},
         ],
         {cancelable: true},
