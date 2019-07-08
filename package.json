@@ -7,29 +7,21 @@
     "test": "jest"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "prop-types": "^15.7.2",
+    "generator-rn-toolbox": "^3.11.1",
     "react": "16.8.3",
     "react-native": "0.59.8",
-    "react-native-gesture-handler": "^1.2.1",
-    "react-native-vector-icons": "^6.4.2",
-    "react-navigation": "^3.9.2",
-    "reactotron-react-native": "^3.5.0",
-    "styled-components": "^4.2.0"
+    "react-native-cached-image": "^1.4.3",
+    "react-native-camera": "^2.11.0",
+    "react-native-fast-image": "^7.0.2",
+    "react-native-vector-icons": "^6.5.0",
+    "redux": "^4.0.1",
+    "rn-fetch-blob": "^0.10.15",
+    "yo": "^2.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/runtime": "^7.4.4",
-    "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
-    "babel-plugin-root-import": "^6.2.0",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
-    "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.13.0",
-    "eslint-plugin-react-native": "^3.7.0",
     "jest": "^24.8.0",
     "metro-react-native-babel-preset": "^0.54.1",
     "react-test-renderer": "16.8.3"
