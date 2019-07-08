@@ -14,11 +14,11 @@ import styles from './styles/styles.js';
 
 const SSolImage = require('../../images/SSolImage.png');
 
-var urlImages  = {0: "https://calculusapi.herokuapp.com/get_diagram?tipo=0&p=",
-                  1: "https://calculusapi.herokuapp.com/get_diagram?tipo=1&p=",
-                  2: "https://calculusapi.herokuapp.com/get_diagram?tipo=3&p=",
-                  3: "https://calculusapi.herokuapp.com/get_diagram?tipo=4&p=",
-                  4: "https://calculusapi.herokuapp.com/get_diagram?tipo=5&p=",
+var urlImages  = {0: "https://calculusapi.herokuapp.com/get_diagram?tipo=0",
+                  1: "https://calculusapi.herokuapp.com/get_diagram?tipo=1",
+                  2: "https://calculusapi.herokuapp.com/get_diagram?tipo=3",
+                  3: "https://calculusapi.herokuapp.com/get_diagram?tipo=4",
+                  4: "https://calculusapi.herokuapp.com/get_diagram?tipo=5",
                   5: "http://ssolimprocessing.herokuapp.com/current_image"};// <===== Bancada
 // A imagem da bancada não esta sendo atualizada
 export default class MainPage extends Component{
@@ -42,7 +42,7 @@ export default class MainPage extends Component{
     this.getValue();
   }
   showStandCard = () => {
-    if(this.state.pressSSol === true){
+    if(this.state.pressSSol === false){
       this.setState({ showStand: !this.state.showStand
         , showDiagrams: false
         , showQuestions: false
@@ -58,7 +58,7 @@ export default class MainPage extends Component{
     }
   };
   showQuestionsCard = () => {
-    if(this.state.pressSSol === true){
+    if(this.state.pressSSol === false){
       this.setState({ showStand: false
         , showDiagrams: false
         , showQuestions: !this.state.showQuestions
@@ -72,11 +72,14 @@ export default class MainPage extends Component{
       , showHelp: !this.state.showHelp});
   };
   wasSSolpressed = () => {
+    this.setState({
+      count: (this.state.count+1)%2
+    });
     Alert.alert(
         'Como você quer tirar sua foto?',
         ' ',
         [
-          {text: 'Usar a ESP', onPress: () => (this.setState({pressSSol: true}) && fetch("https://calculusapi.herokuapp.com/get_diagram?tipo=0&p="))},
+          {text: 'Usar a ESP', onPress: () => (this.setState({pressSSol: false}) && fetch("https://calculusapi.herokuapp.com/get_diagram?tipo=0&p="))},
           {text: 'Usar a Câmera', onPress: () => this.setState({showCamera: true})},
         ],
         {cancelable: true},
@@ -86,15 +89,26 @@ export default class MainPage extends Component{
 
   questionsFinished = () => {
     this.refresh();
-    return this.state.finished = true;
   };
-  refresh = () =>{
-    RNFetchBlob.fetch("GET", "https://calculusapi.herokuapp.com/generate_new");
-    let num = (Math.random()+1)*4;
-    num = Math.floor(num);
-    for (var i = 0; i < 5 ; i++) {
-      urlImages[i] = urlImages[i].concat(String(num));
-    }
+  refresh = () => {
+    console.log("Entrou");
+    fetch("https://calculusapi.herokuapp.com/generate_new")
+      .then((response) => {
+            urlImages[0] = urlImages[0].concat("&"+Math.random());
+            urlImages[1] = urlImages[1].concat("&"+Math.random());
+            urlImages[2] = urlImages[2].concat("&"+Math.random());
+            urlImages[3] = urlImages[3].concat("&"+Math.random());
+            urlImages[4] = urlImages[4].concat("&"+Math.random());
+            console.log(urlImages[0]);
+            console.log(urlImages[1]);
+            console.log(urlImages[2]);
+            console.log(urlImages[3]);
+            console.log(urlImages[4]);  
+            console.log("Generate_New fetch ====> "+ JSON.stringify(response));
+            return this.state.finished = true;
+      }).catch((error) => {
+        console.log("Generate_New error ====> "+error);
+      });
   }
   getValue = () =>{
       RNFetchBlob.fetch('GET', 'http://ssolimprocessing.herokuapp.com/current_image', {
@@ -102,8 +116,7 @@ export default class MainPage extends Component{
     }).then((response) => {
         let status = response.info().status;
         if(status == 200) {
-          console.log('Foi');
-          this.setState({pressSSol: true});
+          // this.setState({pressSSol: true});
         }
         else {
           console.log(response);
@@ -112,7 +125,9 @@ export default class MainPage extends Component{
       console.log(errorMessage);
     })
   }
+  refreshDiagrams = () =>{
 
+  }
   render() {
     return (
       <View style={styles.mainPage}>
@@ -121,7 +136,7 @@ export default class MainPage extends Component{
         <Header SSolButton={this.wasSSolpressed}/>
           <View style = {styles.mainPageCard}>
           {(this.state.showStand?<CardStand urlImages = {urlImages}/> :
-          ((this.state.showDiagrams && this.state.finished === true) ? <CardDiagram urlImages={urlImages} refresh={this.refresh}/> :
+          ((this.state.showDiagrams && this.state.finished === true) ? <CardDiagram urlImages={urlImages}/> :
           (this.state.showQuestions ? <CardQuestions counterBin = {this.state.count}
             finished = {this.questionsFinished}
             allDone={this.state.finished}/> :

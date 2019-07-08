@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
 import { Text, View, Animated, Image, ScrollView, Button, TouchableOpacity } from 'react-native';
+import {CachedImage, ImageCacheProvider} from 'react-native-cached-image';
 
 import styles from '../styles/styles.js';
 
 export default class CardGraph extends Component{
   state = {
-    url0: null,
-    url1: null,
-    url2: null,
-    url3: null,
-    url4: null,
     fadeAnim: new Animated.Value(0),
   }
   componentDidMount() {
@@ -22,20 +18,9 @@ export default class CardGraph extends Component{
     ).start();
   }
   componentWillMount() {
-    this.props.refresh;
-    this.setState({
-      url0: this.props.urlImages[0],
-      url1: this.props.urlImages[1],
-      url2: this.props.urlImages[2],
-      url3: this.props.urlImages[3],
-      url4: this.props.urlImages[4],
-    });
-    console.log("URL0 ======> " + this.props.urlImages[0]);
-    console.log("URL1 ======> " + this.props.urlImages[1]);
-    console.log("URL2 ======> " + this.props.urlImages[2]);
-    console.log("URL3 ======> " + this.props.urlImages[3]);
-    console.log("URL4 ======> " + this.props.urlImages[4]);
+    // this.props.refresh;
   }
+
   render() {
     let { fadeAnim } = this.state;
     return (
@@ -48,29 +33,27 @@ export default class CardGraph extends Component{
           <Text style = {styles.cardTitle}>Diagramas</Text>
           <ScrollView style={styles.contentCard} showsVerticalScrollIndicator={false}>
             <Text style={styles.secondTitle}>Diagrama Estrutural</Text>
-            <Image source={{uri: this.state.url0}}
-              style={styles.graphShape}
-            />
+            <Image source={{ uri: "https://calculusapi.herokuapp.com/get_diagram?tipo=0&0.976800591829772",
+                 method: 'GET',
+                 headers: { Pragma: 'no-cache'},}}
+                 style={{width: 400, height: 400}} />
             <Text style={styles.secondTitle}>Forças de reação</Text>
-            <Image source={{uri: this.state.url1}}
+            <Image source={{uri: this.props.urlImages[1]}}
               style={styles.graphShape}
             />
             <Text style={styles.secondTitle}>Esforço Cortante</Text>
-            <Image source={{uri: this.state.url2}}
+            <Image source={{uri: this.props.urlImages[2]}}
               style={styles.graphShape}
             />
             <Text style={styles.secondTitle}>Momento Fletor</Text>
-            <Image source={{uri: this.state.url3}}
+            <Image source={{uri: this.props.urlImages[3]}}
               style={styles.graphShape}
             />
             <Text style={styles.secondTitle}>Deflexão</Text>
-            <Image source={{uri: this.state.url4}}
+            <Image source={{uri: this.props.urlImages[4]}}
               style={styles.graphShape}
             />
           </ScrollView>
-          <TouchableOpacity style={styles.anyButton} onPress={this.props.refresh}>
-            <Text style={styles.buttonText}>Recarregar</Text>
-          </TouchableOpacity>
         </View>
         </Animated.View>
     );

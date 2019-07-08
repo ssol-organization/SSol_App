@@ -26,28 +26,6 @@ export default class Camera extends Component{
   }
   acceptPhoto = () => {
     this.callFetch(this.state.path);
-
-    // Salvando img na galeria
-    // CameraRoll.saveToCameraRoll(response.uri, "photo");
-
-    // Pegando img da galeria
-    // CameraRoll.getPhotos({
-    //      first: 1,
-    //      assetType: 'Photos',
-    //    })
-    //    .then(r => {
-    //      this.setState({aux: r.edges})
-    //      //Pegando URI da imagem da galeria
-    //      this.state.aux.map((p,i) => {
-    //        this.setState({path: p.node.image.uri});
-    //        console.log("Na Galeria =========> " + this.state.path);
-    //        this.callFetch(this.state.path);
-    //      })
-    //    })
-    //    .catch((err) => {
-    //      console.log(err);
-    //    });
-
   }
   callFetch(path){
     RNFetchBlob.fetch('POST', 'http://ssolimprocessing.herokuapp.com/receive', {
